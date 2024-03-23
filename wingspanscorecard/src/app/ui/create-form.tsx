@@ -1,4 +1,6 @@
-export default function Form() {
+import { Player } from '@/app/lib/definitions';
+
+export default function Form({ players }: { players: Player[] }) {
     return (
         <div className="flex flex-col gap-4 w-full">
             <div className="w-full grid grid-cols-3 gap-4">
@@ -16,11 +18,15 @@ export default function Form() {
                     <select
                         id='p1name'
                         name='p1name'
-                        defaultValue='Katie'
+                        defaultValue=''
                         className="border border-black w-full mb-2"
                     >
-                        <option value="Katie">Katie</option>
-                        <option value="Alec">Alec</option>
+                        <option value='' disabled>Select a player</option>
+                        {players.map((player) => (
+                            <option key={player.id} value={player.id}>
+                                {player.name}
+                            </option>
+                        ))}
                     </select>
                     <input
                         id='p1birdpoints'
