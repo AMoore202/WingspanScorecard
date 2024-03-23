@@ -82,11 +82,15 @@ export default function Form({ players }: { players: Player[] }) {
                     <select
                         id='p2name'
                         name='p2name'
-                        defaultValue='Alec'
+                        defaultValue=''
                         className="border border-black w-full mb-2"
                     >
-                        <option value="Katie">Katie</option>
-                        <option value="Alec">Alec</option>
+                    <option value='' disabled>Select a player</option>
+                        {players.map((player) => (
+                            <option key={player.id} value={player.id}>
+                                {player.name}
+                            </option>
+                        ))}
                     </select>
                     <input
                         id='p2birdpoints'
