@@ -134,6 +134,7 @@ export default function Form() {
                 </div>
             </div>
             <input type="date" id="gamedate" name="gamedate" className="w-32"/>
+            <input type="time" id="gametime" name="gametime" className="w-32"/>
             <button className="border border-black">Submit</button>
         </div>
     );
