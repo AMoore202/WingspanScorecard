@@ -5,6 +5,18 @@ export default function Form({ players }: { players: Player[] }) {
     return (
         <form action={createGame}>
             <div className="flex flex-col gap-4 w-full">
+                <label>
+                    <input type='checkbox' id='europeanexp' name='europeanexp' />
+                    European Expansion
+                </label>
+                <label>
+                    <input type='checkbox' id='oceaniaexp' name='oceaniaexp' />
+                    Oceania Expansion
+                </label>
+                <label>
+                    <input type='checkbox' id='asianexp' name='asianexp' />
+                    Asian Expansion
+                </label>
                 <div className="w-full grid grid-cols-3 gap-4">
                     <div>
                         <div className="mb-2">Player</div>

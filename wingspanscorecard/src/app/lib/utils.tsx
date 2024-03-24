@@ -10,4 +10,10 @@ export function safeParseInt(value: FormDataEntryValue | null, defaultValue: num
     return parsedValue;
 }
 
-// Noted bug: empty input is given a value of ten 
+
+export function safeParseBool(value: FormDataEntryValue | null) {
+    if (value === "on"){
+        return true;
+    }
+    return false;
+}

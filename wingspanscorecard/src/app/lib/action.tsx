@@ -4,12 +4,15 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { safeParseInt } from '@/app/lib/utils';
+import { safeParseInt, safeParseBool } from '@/app/lib/utils';
 
 const FormSchema = z.object({
     id: z.number(),
     date: z.string(),
     time: z.string(),
+    european_expansion: z.boolean(),
+    oceania_expansion: z.boolean(),
+    asian_expansion: z.boolean(),
     p1_id: z.string(),
     p1_bird_points: z.number(),
     p1_bonus_cards: z.number(),
@@ -34,6 +37,9 @@ export async function createGame(formData:FormData) {
     const {
         date,
         time,
+        european_expansion,
+        oceania_expansion,
+        asian_expansion,
         p1_id,
         p1_bird_points,
         p1_bonus_cards,
@@ -53,6 +59,9 @@ export async function createGame(formData:FormData) {
     } = CreateGame.parse({
         date: formData.get('gamedate'),
         time: formData.get('gametime'),
+        european_expansion: safeParseBool(formData.get('europeanexp')),
+        oceania_expansion: safeParseBool(formData.get('oceaniaexp')),
+        asian_expansion: safeParseBool(formData.get('asianexp')),
         p1_id: formData.get('p1name'),
         p1_bird_points: safeParseInt(formData.get('p1birdpoints')),
         p1_bonus_cards: safeParseInt(formData.get('p1bonuscards')),
@@ -70,10 +79,11 @@ export async function createGame(formData:FormData) {
         p2_tucked_cards: safeParseInt(formData.get('p2tuckedcards')),
         p2_nectar: safeParseInt(formData.get('p2nectar')),
     });
+    console.log('Euro Expansion', formData.get('europeanexp'));
 
     await sql`
-    INSERT INTO games (date, time)
-    VALUES (${date}, ${time})
+    INSERT INTO games (date, time, european_expansion, oceania_expansion, asian_expansion)
+    VALUES (${date}, ${time}, ${european_expansion}, ${oceania_expansion}, ${asian_expansion})
     `;
 
     await sql`
