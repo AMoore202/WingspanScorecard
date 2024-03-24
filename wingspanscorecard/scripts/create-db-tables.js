@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 
 async function createPlayersTable(client) {
   try {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "players" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS players (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL
       );
     `;
@@ -25,12 +25,12 @@ async function createPlayersTable(client) {
 
 async function createGamesTable(client) {
   try {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     // Create the "Games" table if it doesn't exist
     const createTable = await client.sql`
     CREATE TABLE IF NOT EXISTS games (
-    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
     time TIME NOT NULL
   );
@@ -47,14 +47,14 @@ async function createGamesTable(client) {
 
 async function createScoresTable(client) {
   try {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     // Create the "scores" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS scores (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        game_id UUID NOT NULL,
-        player_id UUID not NULL,
+        id SERIAL PRIMARY KEY,
+        game_id INT NOT NULL,
+        player_id INT not NULL,
         bird_points INT NOT NULL,
         bonus_cards INT NOT NULL,
         end_of_round_goals INT NOT NULL,
