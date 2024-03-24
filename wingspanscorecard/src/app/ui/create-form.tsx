@@ -1,10 +1,39 @@
+'use client';
+
+import { useState } from 'react';
 import { Player } from '@/app/lib/definitions';
 import { createGame } from '@/app/lib/action';
+import ScoreColumn from '@/app/ui/score-column';
 
 export default function Form({ players }: { players: Player[] }) {
+    const numPlayersOptions = Array.from({ length: 9 }, (_, i) => i + 2);
+    const [numPlayers, setNumPlayers] = useState('2');
+    const numPlayersArray = Array.from({ length: parseInt(numPlayers) }, (_, i) => i + 1);
+
+    const handleNumPlayersChange = (event) => {
+        setNumPlayers(event.target.value);
+        console.log("Number of players set to ",event.target.value);
+    };
+
     return (
         <form action={createGame}>
             <div className="flex flex-col gap-4 w-full">
+                <label>
+                    Number of Players
+                    <select
+                        id="numplayers"
+                        name="numplayers"
+                        defaultValue="0"
+                        className="border border-black w-full mb-2"
+                        onChange={handleNumPlayersChange}
+                    >
+                        {numPlayersOptions.map((number) => (
+                            <option key={number} value={number}>
+                                {number}
+                            </option>
+                        ))}
+                    </select>
+                </label>
                 <label>
                     <input type='checkbox' id='europeanexp' name='europeanexp' />
                     European Expansion
@@ -28,134 +57,9 @@ export default function Form({ players }: { players: Player[] }) {
                         <div className="mb-2">Tucked Cards</div>
                         <div className="mb-2">Nectar</div>
                     </div>
-                    <div>
-                        <select
-                            id='p1name'
-                            name='p1name'
-                            defaultValue=''
-                            className="border border-black w-full mb-2"
-                        >
-                            <option value='' disabled>Select a player</option>
-                            {players.map((player) => (
-                                <option key={player.id} value={player.id}>
-                                    {player.name}
-                                </option>
-                            ))}
-                        </select>
-                        <input
-                            id='p1birdpoints'
-                            name='p1birdpoints'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p1bonuscards'
-                            name='p1bonuscards'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p1eorgoals'
-                            name='p1eorgoals'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p1eggs'
-                            name='p1eggs'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p1foodoncard'
-                            name='p1foodoncard'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p1tuckedcards'
-                            name='p1tuckedcards'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p1nectar'
-                            name='p1nectar'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                    </div>
-                    <div>
-                        <select
-                            id='p2name'
-                            name='p2name'
-                            defaultValue=''
-                            className="border border-black w-full mb-2"
-                        >
-                        <option value='' disabled>Select a player</option>
-                            {players.map((player) => (
-                                <option key={player.id} value={player.id}>
-                                    {player.name}
-                                </option>
-                            ))}
-                        </select>
-                        <input
-                            id='p2birdpoints'
-                            name='p2birdpoints'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p2bonuscards'
-                            name='p2bonuscards'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p2eorgoals'
-                            name='p2eorgoals'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p2eggs'
-                            name='p2eggs'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p2foodoncard'
-                            name='p2foodoncard'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p2tuckedcards'
-                            name='p2tuckedcards'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                        <input
-                            id='p2nectar'
-                            name='p2nectar'
-                            type="number"
-                            step="1"
-                            className="border border-black w-full mb-2"
-                        />
-                    </div>
+                    {numPlayersArray.map((number) => (
+                        <ScoreColumn key={number} players={players} playerNum={number.toString()} />
+                    ))}
                 </div>
                 <input type="date" id="gamedate" name="gamedate" className="w-32"/>
                 <input type="time" id="gametime" name="gametime" className="w-32"/>
