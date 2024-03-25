@@ -1,6 +1,6 @@
 import React from "react"
-import Form from '@/app/ui/create-form'
-import { fetchPlayers } from "@/app/lib/data";
+import Form from '@/app/ui/add-game'
+import { fetchPlayers } from "@/app/lib/server-fetches";
 
 export default async function Page() {
   const players = await fetchPlayers();
