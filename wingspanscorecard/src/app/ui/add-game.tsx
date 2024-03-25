@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Player } from '@/app/lib/definitions';
-import { createGame } from '@/app/lib/server-uploads';
+import { addGame } from '@/app/lib/server-uploads';
 import ScoreColumn from '@/app/ui/score-column';
 
 export default function Form({ players }: { players: Player[] }) {
@@ -16,7 +16,7 @@ export default function Form({ players }: { players: Player[] }) {
     };
 
     return (
-        <form action={createGame}>
+        <form action={addGame}>
             <div className="flex flex-col gap-4 w-full">
                 <label>
                     Number of Players
