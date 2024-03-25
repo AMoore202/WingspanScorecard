@@ -10,7 +10,7 @@ export default function Form({ players }: { players: Player[] }) {
     const [numPlayers, setNumPlayers] = useState('2');
     const numPlayersArray = Array.from({ length: parseInt(numPlayers) }, (_, i) => i + 1);
 
-    const handleNumPlayersChange = (event) => {
+    const handleNumPlayersChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setNumPlayers(event.target.value);
         console.log("Number of players set to ",event.target.value);
     };
