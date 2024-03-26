@@ -4,10 +4,14 @@ import { useState } from 'react';
 import { Player } from '@/app/lib/definitions';
 import { addGame } from '@/app/lib/server-uploads';
 import ScoreColumn from '@/app/ui/score-column';
+import ScoreRow from '@/app/ui/score-row';
+import PlayerRow from '@/app/ui/player-row';
+
 
 export default function Form({ players }: { players: Player[] }) {
     const numPlayersOptions = Array.from({ length: 9 }, (_, i) => i + 2);
     const [numPlayers, setNumPlayers] = useState('2');
+    const numPlayersInt = parseInt(numPlayers);
     const numPlayersArray = Array.from({ length: parseInt(numPlayers) }, (_, i) => i + 1);
 
     const handleNumPlayersChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,7 +28,7 @@ export default function Form({ players }: { players: Player[] }) {
                         id="numplayers"
                         name="numplayers"
                         defaultValue="0"
-                        className="border border-black w-full mb-2"
+                        className="border border-black w-32 mb-2"
                         onChange={handleNumPlayersChange}
                     >
                         {numPlayersOptions.map((number) => (
@@ -61,6 +65,8 @@ export default function Form({ players }: { players: Player[] }) {
                         <ScoreColumn key={number} players={players} playerNum={number.toString()} />
                     ))}
                 </div>
+                <PlayerRow players={players} numPlayers={numPlayersInt} />
+                <ScoreRow category='extrapoints' numPlayers={numPlayersInt} />
                 <input type="date" id="gamedate" name="gamedate" className="w-32"/>
                 <input type="time" id="gametime" name="gametime" className="w-32"/>
                 <button type='submit' className="border border-black">Submit</button>

@@ -6,7 +6,7 @@ export default async function Page() {
   const players = await fetchPlayers();
   
   return (
-    <div className="flex w-1/3 p-8">
+    <div className="flex m-auto w-1/3 p-8">
       <Form players={players} />
     </div>
   );
