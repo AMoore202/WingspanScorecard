@@ -1,4 +1,4 @@
-export default function ScoreRow({ category, numPlayers }: { category: string; numPlayers: number }) {
+export default function ScoreRow({ category, numPlayers, handleNumChange }: { category: string; numPlayers: number; handleNumChange: Function }) {
     const numPlayersArray = Array.from({ length: numPlayers }, (_, i) => i + 1);
 
     return (
@@ -11,6 +11,7 @@ export default function ScoreRow({ category, numPlayers }: { category: string; n
                     type="number"
                     step="1"
                     className="border border-black mb-2 w-40"
+                    onChange={handleNumChange}
                 />
             ))}
         </div>

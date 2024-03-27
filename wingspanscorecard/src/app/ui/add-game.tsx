@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Player } from '@/app/lib/definitions';
 import { addGame } from '@/app/lib/server-uploads';
-import ScoreColumn from '@/app/ui/score-column';
 import ScoreRow from '@/app/ui/score-row';
 import PlayerRow from '@/app/ui/player-row';
 
@@ -12,12 +11,43 @@ export default function Form({ players }: { players: Player[] }) {
     const numPlayersOptions = Array.from({ length: 9 }, (_, i) => i + 2);
     const [numPlayers, setNumPlayers] = useState('2');
     const numPlayersInt = parseInt(numPlayers);
-    const numPlayersArray = Array.from({ length: parseInt(numPlayers) }, (_, i) => i + 1);
+    const [p1Score, setP1Score] = useState('0');
+    const [p2Score, setP2Score] = useState('0');
+    const [p3Score, setP3Score] = useState('0');
+    const [p4Score, setP4Score] = useState('0');
+    const [p5Score, setP5Score] = useState('0');
+    const [p6Score, setP6Score] = useState('0');
+    const [p7Score, setP7Score] = useState('0');
+    const [p8Score, setP8Score] = useState('0');
+
+    const scoreSetterFunctions = {
+        1: setP1Score,
+        2: setP2Score,
+        3: setP3Score,
+        4: setP4Score,
+        5: setP5Score,
+        6: setP6Score,
+        7: setP7Score,
+        8: setP8Score,
+    };
 
     const handleNumPlayersChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setNumPlayers(event.target.value);
-        console.log("Number of players set to ",event.target.value);
     };
+
+    const handleScoreChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+        const playerNumber = parseInt(event.target.id.charAt(1));
+        const scoreSetterFunction = scoreSetterFunctions[playerNumber];
+        scoreSetterFunction(event.target.value);
+        console.log("Player 1 Score", p1Score);
+        console.log("Player 2 Score", p2Score);
+    };
+
+    // const handleP1ScoreChange = ({ event, playerNumber }: { event: React.ChangeEvent<HTMLInputElement>; playerNumber: number }) => {
+    //     setP1Score(event.target.value);
+    //     console.log(`P${playerNumber} Score Set to `,event.target.value);
+    // };
+
 
     return (
         <form action={addGame}>
@@ -63,13 +93,15 @@ export default function Form({ players }: { players: Player[] }) {
                     </div>
                     <div className='flex flex-col'>
                         <PlayerRow players={players} numPlayers={numPlayersInt} />
-                        <ScoreRow category='birdpoints' numPlayers={numPlayersInt} />
-                        <ScoreRow category='bonuscards' numPlayers={numPlayersInt} />
-                        <ScoreRow category='eorgoals' numPlayers={numPlayersInt} />
-                        <ScoreRow category='eggs' numPlayers={numPlayersInt} />
-                        <ScoreRow category='foodoncard' numPlayers={numPlayersInt} />
-                        <ScoreRow category='tuckedcards' numPlayers={numPlayersInt} />
-                        <ScoreRow category='nectar' numPlayers={numPlayersInt} />
+                        <ScoreRow category='birdpoints' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <ScoreRow category='bonuscards' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <ScoreRow category='eorgoals' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <ScoreRow category='eggs' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <ScoreRow category='foodoncard' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <ScoreRow category='tuckedcards' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <ScoreRow category='nectar' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        <div>{p1Score}</div>
+                        <div>{p2Score}</div>
                     </div>
                 </div>
                 <input type="date" id="gamedate" name="gamedate" className="w-32"/>
