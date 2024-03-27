@@ -50,7 +50,7 @@ export default function Form({ players }: { players: Player[] }) {
                     <input type='checkbox' id='asianexp' name='asianexp' />
                     Asian Expansion
                 </label>
-                <div className="w-full grid grid-cols-3 gap-4">
+                <div className="w-full grid grid-cols-2 gap-4">
                     <div>
                         <div className="mb-2">Player</div>
                         <div className="mb-2">Bird Points</div>
@@ -61,12 +61,17 @@ export default function Form({ players }: { players: Player[] }) {
                         <div className="mb-2">Tucked Cards</div>
                         <div className="mb-2">Nectar</div>
                     </div>
-                    {numPlayersArray.map((number) => (
-                        <ScoreColumn key={number} players={players} playerNum={number.toString()} />
-                    ))}
+                    <div className='flex flex-col'>
+                        <PlayerRow players={players} numPlayers={numPlayersInt} />
+                        <ScoreRow category='birdpoints' numPlayers={numPlayersInt} />
+                        <ScoreRow category='bonuscards' numPlayers={numPlayersInt} />
+                        <ScoreRow category='eorgoals' numPlayers={numPlayersInt} />
+                        <ScoreRow category='eggs' numPlayers={numPlayersInt} />
+                        <ScoreRow category='foodoncard' numPlayers={numPlayersInt} />
+                        <ScoreRow category='tuckedcards' numPlayers={numPlayersInt} />
+                        <ScoreRow category='nectar' numPlayers={numPlayersInt} />
+                    </div>
                 </div>
-                <PlayerRow players={players} numPlayers={numPlayersInt} />
-                <ScoreRow category='extrapoints' numPlayers={numPlayersInt} />
                 <input type="date" id="gamedate" name="gamedate" className="w-32"/>
                 <input type="time" id="gametime" name="gametime" className="w-32"/>
                 <button type='submit' className="border border-black">Submit</button>
