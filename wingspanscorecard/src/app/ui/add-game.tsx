@@ -10,6 +10,8 @@ import TotalRow from '@/app/ui/total-row';
 
 
 export default function Form({ players }: { players: Player[] }) {
+    const today = new Date().toISOString().split('T')[0];
+    const now = new Date().toISOString().split('T')[1].substring(0, 5);
     const numPlayersOptions = Array.from({ length: 9 }, (_, i) => i + 2);
     const [numPlayers, setNumPlayers] = useState('2');
     const numPlayersInt = parseInt(numPlayers);
@@ -90,8 +92,8 @@ export default function Form({ players }: { players: Player[] }) {
                         <TotalRow scores={scores} numPlayers={numPlayersInt} />
                     </div>
                 </div>
-                <input type="date" id="gamedate" name="gamedate" className="w-32"/>
-                <input type="time" id="gametime" name="gametime" className="w-32"/>
+                <input type="date" id="gamedate" name="gamedate" defaultValue={today} className="w-32"/>
+                <input type="time" id="gametime" name="gametime" defaultValue={now} className="w-32"/>
                 <button type='submit' className="border border-black">Submit</button>
             </div>
         </form>
