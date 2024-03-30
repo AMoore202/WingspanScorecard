@@ -16,6 +16,7 @@ export default function Form({ players }: { players: Player[] }) {
     const [numPlayers, setNumPlayers] = useState('2');
     const numPlayersInt = parseInt(numPlayers);
     const [scores, setScores] = useState(Array(8).fill(null).map(() => new Array(7).fill(0)));
+    const [oceaniaExpansion, setOceaniaExpansion] = useState(false);
     const pointsCategories: PointsCategory = {
         'birdpoints': 1,
         'bonuscards': 2,
@@ -28,6 +29,10 @@ export default function Form({ players }: { players: Player[] }) {
 
     const handleNumPlayersChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setNumPlayers(event.target.value);
+    };
+
+    const handleOceaniaExpansionChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+        setOceaniaExpansion(event.target.checked);
     };
 
     const handleScoreChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
@@ -62,7 +67,7 @@ export default function Form({ players }: { players: Player[] }) {
                     European Expansion
                 </label>
                 <label>
-                    <input type='checkbox' id='oceaniaexp' name='oceaniaexp' />
+                    <input type='checkbox' id='oceaniaexp' name='oceaniaexp' onChange={handleOceaniaExpansionChange}/>
                     Oceania Expansion
                 </label>
                 <label>
@@ -78,7 +83,7 @@ export default function Form({ players }: { players: Player[] }) {
                         <div className="mb-2">Eggs</div>
                         <div className="mb-2">Food on Cards</div>
                         <div className="mb-2">Tucked Cards</div>
-                        <div className="mb-2">Nectar</div>
+                        { oceaniaExpansion && <div className="mb-2">Nectar</div>}
                     </div>
                     <div className='flex flex-col'>
                         <PlayerRow players={players} numPlayers={numPlayersInt} />
@@ -88,7 +93,7 @@ export default function Form({ players }: { players: Player[] }) {
                         <ScoreRow category='eggs' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
                         <ScoreRow category='foodoncard' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
                         <ScoreRow category='tuckedcards' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
-                        <ScoreRow category='nectar' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />
+                        { oceaniaExpansion && <ScoreRow category='nectar' numPlayers={numPlayersInt} handleNumChange={handleScoreChange} />}
                         <TotalRow scores={scores} numPlayers={numPlayersInt} />
                     </div>
                 </div>
