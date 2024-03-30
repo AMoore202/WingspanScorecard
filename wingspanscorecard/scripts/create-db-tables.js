@@ -32,7 +32,10 @@ async function createGamesTable(client) {
     CREATE TABLE IF NOT EXISTS games (
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
-    time TIME NOT NULL
+    time TIME NOT NULL,
+    european_expansion BOOL NOT NULL,
+    oceania_expansion BOOL NOT NULL,
+    asian_expansion BOOL NOT NULL
   );
 `;
 

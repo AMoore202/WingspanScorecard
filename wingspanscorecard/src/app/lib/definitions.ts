@@ -21,3 +21,13 @@ export type Score = {
     tucked_cards: number;
     nectar: number;
 };
+
+export type PointsCategory = {
+    [key: string]: number;
+}
+
+export type ScoreRowProps = {
+    category: string;
+    numPlayers: number;
+    handleNumChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  }
