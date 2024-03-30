@@ -23,6 +23,9 @@ const config: Config = {
           '950': '#0d2f44',
         },
       },
+      boxShadow: {
+        'menu': '0 4px 4px 0px rgba(13,47, 68, 0.25)'
+      },
     },
   },
   plugins: [],
