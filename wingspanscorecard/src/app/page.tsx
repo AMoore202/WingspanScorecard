@@ -1,21 +1,28 @@
 import React from "react"
-import Form from '@/app/ui/add-game/add-game'
-import { fetchPlayers } from "@/app/lib/server-fetches";
-import Image from 'next/image';
+import MenuBar from "@/app/ui/menu-bar";
+import GameCard from "@/app/ui/recent-games/game-card";
+import { PlayerScore } from "@/app/lib/definitions";
 
-export default async function Page() {
-  const players = await fetchPlayers();
-  
-  return (
-    <div className="w-full h-14 bg-seagull-200 border-b-2 border-seagull-500 shadow-menu">
-        <div className="p-2 pb-2 pl-8 pr-8">
-          <Image
-            src="/Logo.png"
-            width={224}
-            height={36}
-            alt="Wingspan Scorecard Logo"
-          />
-        </div>
-    </div>
-  );
+export default function Page() {
+    const scores: PlayerScore[] = [
+        {
+            player: "Katie <3",
+            score: 105,
+        },
+        {
+            player: "Alec",
+            score: 99,
+        }
+    ];
+    const date = new Date();
+    const gameNum = 1;
+
+    return (
+        <>
+            <MenuBar />
+            <div className="flex w-full max-w-7xl p-7 m-auto">
+                <GameCard scores={scores} date={date} gameNum={gameNum} />
+            </div>
+        </>
+    );
 }

@@ -3,10 +3,15 @@ export type Player = {
     name: string;
 };
 
+export type PlayerScore = {
+    player: string;
+    score: number;
+};
+
 export type Game = {
-    id: string;
-    date: string;
-    time: string;
+    scores: Array<PlayerScore>;
+    date: Date;
+    gameNumber: number;
 };
 
 export type Score = {
