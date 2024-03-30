@@ -1,4 +1,6 @@
-export default function ScoreRow({ category, numPlayers, handleNumChange }: { category: string; numPlayers: number; handleNumChange: Function }) {
+import { ScoreRowProps } from "@/app/lib/definitions";
+
+export default function ScoreRow({ category, numPlayers, handleNumChange }: ScoreRowProps) {
     const numPlayersArray = Array.from({ length: numPlayers }, (_, i) => i + 1);
 
     return (

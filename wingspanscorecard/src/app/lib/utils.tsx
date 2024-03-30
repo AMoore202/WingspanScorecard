@@ -17,3 +17,7 @@ export function safeParseBool(value: FormDataEntryValue | null) {
     }
     return false;
 }
+
+export function sumArray(array: number[]) {
+    return array.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+}
