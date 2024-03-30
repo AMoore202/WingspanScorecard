@@ -8,10 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        seagull: {
+          '50': '#f1f9fe',
+          '100': '#e2f3fc',
+          '200': '#bfe5f8',
+          '300': '#75cbf0',
+          '400': '#47bbe9',
+          '500': '#1fa2d8',
+          '600': '#1283b7',
+          '700': '#0f6895',
+          '800': '#11587b',
+          '900': '#144a66',
+          '950': '#0d2f44',
+        },
       },
     },
   },
