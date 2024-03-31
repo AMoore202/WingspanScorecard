@@ -1,9 +1,11 @@
 import React from "react"
 import MenuBar from "@/app/ui/menu-bar";
 import GameCard from "@/app/ui/recent-games/game-card";
-import { PlayerScore } from "@/app/lib/definitions";
+import { PlayerScore, Game } from "@/app/lib/definitions";
+import { fetchGameData } from "@/app/lib/server-fetches";
 
-export default function Page() {
+export default async function Page() {
+    const gameDataFetched = await fetchGameData();
     const scores: PlayerScore[] = [
         {
             player: "Katie <3",
@@ -14,14 +16,12 @@ export default function Page() {
             score: 99,
         }
     ];
-    const date = new Date();
-    const gameNum = 1;
 
     return (
         <>
             <MenuBar />
             <div className="flex w-full max-w-7xl p-7 m-auto">
-                <GameCard scores={scores} date={date} gameNum={gameNum} />
+                <GameCard scores={scores} gameData={gameDataFetched[0]} />
             </div>
         </>
     );

@@ -9,9 +9,9 @@ export type PlayerScore = {
 };
 
 export type Game = {
-    scores: Array<PlayerScore>;
+    id: number;
     date: Date;
-    gameNumber: number;
+    game_number: number;
 };
 
 export type Score = {

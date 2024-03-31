@@ -1,6 +1,6 @@
-import { PlayerScore } from "@/app/lib/definitions";
+import { PlayerScore, Game } from "@/app/lib/definitions";
 
-export default function GameCard( { scores, date, gameNum}: { scores: Array<PlayerScore>; date: Date; gameNum: number; } ) {
+export default function GameCard( { scores, gameData }: { scores: Array<PlayerScore>; gameData: Game; } ) {
     return (
         <div className="w-full bg-seagull-700 rounded-2xl">
             <div className="w-full pt-4 pb-4 pl-8 pr-8">
@@ -12,8 +12,8 @@ export default function GameCard( { scores, date, gameNum}: { scores: Array<Play
                         </div>
                     ))}
                     <div className="flex justify-end gap-2">
-                        <div className="text-seagull-200 text-sm">{date.toISOString()}</div>
-                        <div className="text-seagull-200 text-sm">Game {gameNum}</div>
+                        <div className="text-seagull-200 text-sm">{gameData.date.toISOString()}</div>
+                        <div className="text-seagull-200 text-sm">Game {gameData.game_number}</div>
 
                     </div>
                 </div>
