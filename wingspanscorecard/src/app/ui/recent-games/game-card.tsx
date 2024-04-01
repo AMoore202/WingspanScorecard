@@ -1,4 +1,7 @@
 import { PlayerScore, Game } from "@/app/lib/definitions";
+import CalendarIcon from "@/app/ui/icons/calendar-icon";
+import HashtagIcon from "@/app/ui/icons/hashtag-icon";
+
 
 export default function GameCard( { scores, gameData }: { scores: Array<PlayerScore>; gameData: Game; } ) {
     return (
@@ -11,10 +14,15 @@ export default function GameCard( { scores, gameData }: { scores: Array<PlayerSc
                             <div className="text-white text-xl font-bold">{score.score}</div>
                         </div>
                     ))}
-                    <div className="flex justify-end gap-2">
-                        <div className="text-seagull-200 text-sm">{gameData.date.toISOString()}</div>
-                        <div className="text-seagull-200 text-sm">Game {gameData.game_number}</div>
-
+                    <div className="flex justify-end gap-3 items-center">
+                        <div className="flex items-center gap-1">
+                            <CalendarIcon className="text-seagull-200"/>
+                            <div className="text-seagull-200 text-sm">{gameData.date.toISOString()}</div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HashtagIcon className="text-seagull-200"/>
+                            <div className="text-seagull-200 text-sm">Game {gameData.game_number}</div>
+                        </div>
                     </div>
                 </div>
             </div>
