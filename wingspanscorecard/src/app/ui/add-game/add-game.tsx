@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Player, PointsCategory } from '@/app/lib/definitions';
 import { addGame } from '@/app/lib/server-uploads';
 import { sumArray, safeParseInt } from '@/app/lib/utils';
-import ScoreRow from '@/app/ui/score-row';
-import PlayerRow from '@/app/ui/player-row';
-import TotalRow from '@/app/ui/total-row';
+import ScoreRow from '@/app/ui/add-game/score-row';
+import PlayerRow from '@/app/ui/add-game/player-row';
+import TotalRow from '@/app/ui/add-game/total-row';
 
 
 export default function Form({ players }: { players: Player[] }) {

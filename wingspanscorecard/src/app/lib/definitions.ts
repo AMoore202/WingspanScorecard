@@ -3,10 +3,16 @@ export type Player = {
     name: string;
 };
 
+export type PlayerScore = {
+    id: number;
+    player: string;
+    score: number;
+};
+
 export type Game = {
-    id: string;
-    date: string;
-    time: string;
+    id: number;
+    date: Date;
+    game_number: number;
 };
 
 export type Score = {
@@ -21,6 +27,11 @@ export type Score = {
     tucked_cards: number;
     nectar: number;
 };
+
+export type ScoredGame = {
+    game: Game;
+    scores: Array<PlayerScore>;
+}
 
 export type PointsCategory = {
     [key: string]: number;

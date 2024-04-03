@@ -1,5 +1,5 @@
 import React from "react"
-import Form from '@/app/ui/add-game'
+import Form from '@/app/ui/add-game/add-game'
 import { fetchPlayers } from "@/app/lib/server-fetches";
 
 export default async function Page() {
