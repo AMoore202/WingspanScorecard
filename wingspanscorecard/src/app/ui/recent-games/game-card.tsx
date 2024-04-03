@@ -31,7 +31,7 @@ export default function GameCard( { winnerScore, scores, gameData }: { winnerSco
                     <div className="flex justify-end gap-3 items-center">
                         <div className="flex items-center gap-1">
                             <CalendarIcon className="text-seagull-200"/>
-                            <div className="text-seagull-200 text-sm">{gameData.date.toISOString()}</div>
+                            <div className="text-seagull-200 text-sm">{gameData.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</div>
                         </div>
                         <div className="flex items-center gap-1">
                             <HashtagIcon className="text-seagull-200"/>
@@ -43,3 +43,4 @@ export default function GameCard( { winnerScore, scores, gameData }: { winnerSco
         </div>
     );
 }
+
