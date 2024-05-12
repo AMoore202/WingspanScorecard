@@ -34,7 +34,7 @@ export async function fetchGameData() {
                 games
         )
         SELECT id, date, game_number FROM OrderedGames
-        ORDER BY date DESC, game_number DESC LIMIT 5
+        ORDER BY date DESC, game_number DESC LIMIT 1
         `;
 
         const gameData = data.rows;
