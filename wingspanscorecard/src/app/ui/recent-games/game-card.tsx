@@ -6,7 +6,6 @@ import CrownIcon from "@/app/ui/icons/crown-icon";
 
 export default function GameCard( { winnerScore, scores, gameData }: { winnerScore: PlayerScore; scores: Array<PlayerScore>; gameData: Game; } ) {
     const scoresLength = Array.from({ length: scores.length}, (_, i) => i + 1);
-    // console.log(winnerScore);
     
     return (
         <div className="w-full bg-seagull-700 rounded-2xl mt-1 mb-1">
