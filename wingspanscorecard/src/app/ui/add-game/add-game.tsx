@@ -194,7 +194,7 @@ export default function Form({ players }: { players: Player[] }) {
         </p>
         <button
           type="submit"
-          className="text-lg font-semibold px-4 py-2 bg-seagull-900 text-white border rounded-full w-32 shadow-md hover:bg-seagull-950"
+          className="text-lg font-semibold px-4 py-2 bg-seagull-900 text-white border rounded-full w-32 shadow-md hover:bg-seagull-950 active:scale-90"
         >
           Submit
         </button>
