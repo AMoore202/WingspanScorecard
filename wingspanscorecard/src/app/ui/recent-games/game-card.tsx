@@ -15,7 +15,7 @@ export default function GameCard( { winnerScore, scores, gameData }: { winnerSco
                         <div className="flex gap-2 items-center">
                             <CrownIcon className="text-white" />
                             <div className="text-white text-3xl font-semibold">{winnerScore.player}</div>                            
-                        </div> 
+                        </div>  
                         <div className="text-white text-3xl font-bold">{winnerScore.score}</div>
                     </div>
                     {scoresLength.map((i) => (
