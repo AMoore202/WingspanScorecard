@@ -9,8 +9,12 @@ import PlayerRow from "@/app/ui/add-game/player-row";
 import TotalRow from "@/app/ui/add-game/total-row";
 
 export default function Form({ players }: { players: Player[] }) {
-  const today = new Date().toISOString().split("T")[0];
-  const now = new Date().toISOString().split("T")[1].substring(0, 5);
+  const torontoTime = new Date().toLocaleString("en-CA", {
+    timeZone: "America/Toronto",
+  });
+  const today = torontoTime.split(",")[0];
+  const now = torontoTime.split(",")[1].trim().substring(0, 5);
+
   const numPlayersOptions = Array.from({ length: 9 }, (_, i) => i + 2);
   const [numPlayers, setNumPlayers] = useState("2");
   const numPlayersInt = parseInt(numPlayers);
@@ -55,13 +59,13 @@ export default function Form({ players }: { players: Player[] }) {
   return (
     <form action={addGame}>
       <div className="flex flex-col gap-4 w-full">
-        <label>
+        <label className="font-medium">
           Number of Players
           <select
             id="numplayers"
             name="numplayers"
             defaultValue="0"
-            className="border border-black w-32 mb-2 mx-2"
+            className="border border-black w-32 mb-2 mx-2 rounded-md p-1"
             onChange={handleNumPlayersChange}
           >
             {numPlayersOptions.map((number) => (
@@ -71,44 +75,60 @@ export default function Form({ players }: { players: Player[] }) {
             ))}
           </select>
         </label>
-        <label>
+        <label className="flex items-center font-medium">
           <input
             type="checkbox"
             id="europeanexp"
             name="europeanexp"
-            className="mr-1"
+            className="mr-2"
           />
           European Expansion
         </label>
-        <label>
+        <label className="flex items-center font-medium">
           <input
             type="checkbox"
             id="oceaniaexp"
             name="oceaniaexp"
             onChange={handleOceaniaExpansionChange}
-            className="mr-1"
+            className="mr-2"
           />
           Oceania Expansion
         </label>
-        <label>
+        <label className="flex items-center font-medium">
           <input
             type="checkbox"
             id="asianexp"
             name="asianexp"
-            className="mr-1"
+            className="mr-2"
           />
           Asian Expansion
         </label>
-        <div className="w-full flex gap-4">
+        <div className="w-full flex gap-4 my-8">
           <div>
-            <div className="h-10 w-40">Player</div>
-            <div className="h-10 w-40">Bird Points</div>
-            <div className="h-10 w-40">Bonus Cards</div>
-            <div className="h-10 w-40">End-of-Round Goals</div>
-            <div className="h-10 w-40">Eggs</div>
-            <div className="h-10 w-40">Food on Cards</div>
-            <div className="h-10 w-40">Tucked Cards</div>
-            {oceaniaExpansion && <div className="h-10 w-40">Nectar</div>}
+            <div className="h-11 w-40 items-center flex font-medium">
+              Player
+            </div>
+            <div className="h-11 w-40 items-center flex font-medium">
+              Bird Points
+            </div>
+            <div className="h-11 w-40 items-center flex font-medium">
+              Bonus Cards
+            </div>
+            <div className="h-11 w-40 items-center flex font-medium">
+              End-of-Round Goals
+            </div>
+            <div className="h-11 w-40 items-center flex font-medium">Eggs</div>
+            <div className="h-11 w-40 items-center flex font-medium">
+              Food on Cards
+            </div>
+            <div className="h-11 w-40 items-center flex font-medium">
+              Tucked Cards
+            </div>
+            {oceaniaExpansion && (
+              <div className="h-11 w-40 items-center flex font-medium">
+                Nectar
+              </div>
+            )}
           </div>
           <div className="flex flex-col">
             <PlayerRow players={players} numPlayers={numPlayersInt} />
@@ -152,25 +172,30 @@ export default function Form({ players }: { players: Player[] }) {
             <TotalRow scores={scores} numPlayers={numPlayersInt} />
           </div>
         </div>
-        <input
-          type="date"
-          id="gamedate"
-          name="gamedate"
-          defaultValue={today}
-          className="w-32"
-        />
-        <input
-          type="time"
-          id="gametime"
-          name="gametime"
-          defaultValue={now}
-          className="w-32"
-        />
-        <p className="text-seagull-950 text-base font-semibold mt-4">
-          Note: Submitting may take up to 10 seconds after you press the button.
-          At some point I will try to add in a loading spinner.
+        <div className="flex gap-4">
+          <input
+            type="date"
+            id="gamedate"
+            name="gamedate"
+            defaultValue={today}
+            className="w-34 bg-white border border-black text-black px-2 py-1 rounded-md"
+          />
+          <input
+            type="time"
+            id="gametime"
+            name="gametime"
+            defaultValue={now}
+            className="w-34 bg-white border border-black text-black px-2 py-1 rounded-md"
+          />
+        </div>
+        <p className="text-seagull-950 text-base font-semibold mt-4 w-[480px]">
+          Submitting may take up to 10 seconds after you press the button. At
+          some point I will try to add in a loading spinner.
         </p>
-        <button type="submit" className="border border-black">
+        <button
+          type="submit"
+          className="text-lg font-semibold px-4 py-2 bg-seagull-950 text-white border rounded-full w-32 shadow-md"
+        >
           Submit
         </button>
       </div>

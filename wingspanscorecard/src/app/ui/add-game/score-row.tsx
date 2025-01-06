@@ -8,7 +8,7 @@ export default function ScoreRow({
   const numPlayersArray = Array.from({ length: numPlayers }, (_, i) => i + 1);
 
   return (
-    <div className="flex gap-2 h-10">
+    <div className="flex items-center gap-2 h-11">
       {numPlayersArray.map((number) => (
         <input
           key={number}
@@ -16,7 +16,7 @@ export default function ScoreRow({
           name={`p${number}${category}`}
           type="number"
           step="1"
-          className="border border-black mb-2 w-40"
+          className="border border-black w-40 p-1 rounded-md "
           onChange={handleNumChange}
         />
       ))}
