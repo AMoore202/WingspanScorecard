@@ -59,13 +59,13 @@ export default function Form({ players }: { players: Player[] }) {
   return (
     <form action={addGame}>
       <div className="flex flex-col gap-4 w-full">
-        <label className="font-medium">
+        <label className="font-medium flex items-center">
           Number of Players
           <select
             id="numplayers"
             name="numplayers"
             defaultValue="0"
-            className="border border-black w-32 mb-2 mx-2 rounded-md p-1"
+            className="border border-black w-32 mx-2 rounded-md p-1"
             onChange={handleNumPlayersChange}
           >
             {numPlayersOptions.map((number) => (
