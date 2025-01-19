@@ -12,15 +12,15 @@ import { Input } from "@/components/ui/input";
 import { addPlayer } from "@/app/lib/server-uploads";
 
 export default function AddPlayerDialog() {
-  const [playerName, setPlayerName] = useState("");
+  // const [playerName, setPlayerName] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("playername", playerName);
-    await addPlayer(formData);
-    // Optionally, close the dialog or reset the form here
-  };
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("playername", playerName);
+  //   await addPlayer(formData);
+  //   // Optionally, close the dialog or reset the form here
+  // };
 
   return (
     <Dialog>
