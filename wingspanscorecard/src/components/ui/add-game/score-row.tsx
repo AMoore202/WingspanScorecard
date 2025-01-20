@@ -1,4 +1,4 @@
-import { ScoreRowProps } from "@/app/lib/definitions";
+import { ScoreRowProps } from "@/lib/definitions";
 
 export default function ScoreRow({
   category,

@@ -1,4 +1,4 @@
-import { Player } from "@/app/lib/definitions";
+import { Player } from "@/lib/definitions";
 
 export default function PlayerRow({
   players,

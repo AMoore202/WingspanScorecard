@@ -1,4 +1,4 @@
-import { sumArray } from "@/app/lib/utils";
+import { sumArray } from "@/lib/utils";
 
 export default function TotalRow({
   scores,
