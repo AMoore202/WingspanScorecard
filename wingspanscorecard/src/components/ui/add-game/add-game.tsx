@@ -9,11 +9,31 @@ import PlayerRow from "@/components/ui/add-game/player-row";
 import TotalRow from "@/components/ui/add-game/total-row";
 
 export default function Form({ players }: { players: Player[] }) {
+  // To-do: Do date and time together
   const torontoTime = new Date().toLocaleString("en-CA", {
     timeZone: "America/Toronto",
   });
   const today = torontoTime.split(",")[0];
-  const now = torontoTime.split(",")[1].trim().substring(0, 5);
+
+  const getTorontoDateTime = (): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      timeZone: "America/Toronto",
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+
+    const formatter = new Intl.DateTimeFormat("en-CA", options);
+    const formattedTime = formatter.format(new Date());
+
+    return formattedTime
+      .replace(/[^0-9:]/g, "")
+      .trim()
+      .slice(0, -3);
+  };
+
+  console.log(getTorontoDateTime());
 
   const numPlayersOptions = Array.from({ length: 9 }, (_, i) => i + 2);
   const [numPlayers, setNumPlayers] = useState("2");
@@ -184,7 +204,7 @@ export default function Form({ players }: { players: Player[] }) {
             type="time"
             id="gametime"
             name="gametime"
-            defaultValue={now}
+            defaultValue={getTorontoDateTime()}
             className="w-34 bg-white border border-black text-black px-2 py-1 rounded-md"
           />
         </div>
