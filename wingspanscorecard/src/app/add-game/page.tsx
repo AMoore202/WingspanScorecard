@@ -1,8 +1,8 @@
 import React from "react";
-import Form from "@/app/ui/add-game/add-game";
-import { fetchPlayers } from "@/app/lib/server-fetches";
-import MenuBar from "../ui/menu-bar";
-import AddPlayerForm from "../ui/add-game/add-player-form";
+import Form from "@/components/ui/add-game/add-game";
+import { fetchPlayers } from "@/lib/server-fetches";
+import MenuBar from "../../components/ui/menu-bar";
+import AddPlayerForm from "../../components/ui/add-game/add-player-form";
 
 export default async function Page() {
   const players = await fetchPlayers();

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { safeParseInt, safeParseBool } from "@/app/lib/utils";
+import { safeParseInt, safeParseBool } from "@/lib/utils";
 
 export async function addGame(formData: FormData) {
   const numPlayers = safeParseInt(formData.get("numplayers"));

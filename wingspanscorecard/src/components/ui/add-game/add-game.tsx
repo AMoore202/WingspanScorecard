@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Player, PointsCategory } from "@/app/lib/definitions";
-import { addGame } from "@/app/lib/server-uploads";
-import { sumArray, safeParseInt } from "@/app/lib/utils";
-import ScoreRow from "@/app/ui/add-game/score-row";
-import PlayerRow from "@/app/ui/add-game/player-row";
-import TotalRow from "@/app/ui/add-game/total-row";
+import { Player, PointsCategory } from "@/lib/definitions";
+import { addGame } from "@/lib/server-uploads";
+import { safeParseInt } from "@/lib/utils";
+import ScoreRow from "@/components/ui/add-game/score-row";
+import PlayerRow from "@/components/ui/add-game/player-row";
+import TotalRow from "@/components/ui/add-game/total-row";
 
 export default function Form({ players }: { players: Player[] }) {
   const torontoTime = new Date().toLocaleString("en-CA", {

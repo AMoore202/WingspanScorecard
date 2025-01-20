@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
-import "@/app/ui/globals.css";
+import "@/app/globals.css";
 
 const redhat = Red_Hat_Display({ subsets: ["latin"] });
 

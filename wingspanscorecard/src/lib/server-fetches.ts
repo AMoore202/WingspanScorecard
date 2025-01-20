@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Player, Game, PlayerScore } from '@/app/lib/definitions';
+import { Player, Game, PlayerScore } from '@/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchPlayers() {

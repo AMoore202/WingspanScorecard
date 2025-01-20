@@ -1,8 +1,8 @@
 import React from "react";
-import MenuBar from "@/app/ui/menu-bar";
-import GameCard from "@/app/ui/recent-games/game-card";
-import { AddGameButton } from "@/app/ui/recent-games/buttons";
-import { fetchGameData, fetchScores } from "@/app/lib/server-fetches";
+import MenuBar from "@/components/ui/menu-bar";
+import GameCard from "@/components/ui/recent-games/game-card";
+import { AddGameButton } from "@/components/ui/recent-games/buttons";
+import { fetchGameData, fetchScores } from "@/lib/server-fetches";
 
 export default async function Page() {
   const numGames = Array.from({ length: 5 }, (_, index) => index);
