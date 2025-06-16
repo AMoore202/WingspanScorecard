@@ -1,16 +1,16 @@
-import Image from 'next/image';
+import { MenuTitle } from "@/components/ui/typography";
+import { LogoIcon, HamburgerIcon } from "@/components/ui/icons";
 
 export default function MenuBar() {
-    return (
-        <div className="w-full h-14 bg-seagull-200 border-b-2 border-seagull-500 shadow-menu">
-            <div className="p-2 pb-2 pl-8 pr-8">
-                <Image
-                    src="/Logo.png"
-                    width={224}
-                    height={36}
-                    alt="Wingspan Scorecard Logo"
-                />
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex justify-between items-center w-full p-4">
+      <div className="flex items-center justify-center size-9 bg-[linear-gradient(180deg,var(--Seagull-600,#187FA9)_0%,var(--Seagull-800,#0C3C50)_100%)] rounded-full shadow-[0px_0px_1px_0px_rgba(0,0,0,0.5)_inset,4px_4px_8px_0px_rgba(0,0,0,0.05)_inset,-4px_4px_8px_0px_rgba(255,255,255,0.05)_inset,0px_0px_2px_0px_rgba(0,0,0,0.15),-2px_2px_4px_0px_rgba(0,0,0,0.25),-0.5px_0.5px_1px_0px_rgba(255,255,255,0.05)_inset,1px_-1px_2px_0px_rgba(0,0,0,0.1)_inset,-1px_1px_2px_0px_rgba(255,255,255,0.05)_inset,-1px_1px_2px_0px_rgba(0,0,0,0.15)]">
+        <LogoIcon className="" />
+      </div>
+      <MenuTitle text="Wingspan Scorecard" />
+      <div className="flex items-center justify-center size-9">
+        <HamburgerIcon className="" />
+      </div>
+    </div>
+  );
 }

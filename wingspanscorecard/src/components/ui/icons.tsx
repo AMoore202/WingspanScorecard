@@ -57,3 +57,42 @@ export function HashtagIcon({ className }: { className: string }) {
     </svg>
   );
 }
+
+export function LogoIcon({ className }: { className: string }) {
+  return (
+    <svg
+      className={className}
+      width="17"
+      height="28"
+      viewBox="0 0 17 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.6352 5.38208C16.4151 5.61016 16.87 6.04731 17 6.23738H15.6352C13.4255 5.73054 8.4603 4.71686 6.27663 4.71686C3.54704 4.71686 3.74201 5.66719 3.74201 5.95229C3.74201 6.23739 3.74201 6.61752 5.10681 7.56786C9.94289 10.704 10.4685 11.6543 10.9559 13.84C11.4433 16.0258 10.4685 20.3023 9.29867 22.298C8.36281 23.8946 4.42441 26.7646 2.57219 28V20.3023C3.54704 20.7775 7.05651 20.0172 7.73891 16.9761C8.4213 13.9351 5.59423 11.2742 3.44956 9.65859C1.30488 8.04302 1.10991 7.74842 0.427517 5.95229C-1.11998 1.87913 1.98728 0.535382 2.57219 0.250282C3.1571 -0.0348172 5.39926 -0.224884 6.27663 0.535382C7.154 1.29565 7.64142 2.62611 8.32382 3.10128C9.00621 3.57645 14.6604 5.09698 15.6352 5.38208Z"
+        fill="#fff"
+      />
+    </svg>
+  );
+}
+
+export function HamburgerIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3 17H21M3 12H21M3 7H21"
+        stroke="#2E3538"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
