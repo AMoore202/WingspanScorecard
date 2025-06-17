@@ -1,10 +1,11 @@
 import React from "react";
 import MenuBar from "@/components/ui/menu-bar";
 import GameCard from "@/components/ui/recent-games/game-card";
-import { AddGameButton } from "@/components/ui/recent-games/buttons";
+// import { AddGameButton } from "@/components/ui/recent-games/buttons";
 import { fetchGameData, fetchScores } from "@/lib/server-fetches";
 import Card from "@/components/ui/card";
 import { Header1 } from "@/components/ui/typography";
+import Button from "@/components/ui/button";
 
 export default async function Page() {
   const numGames = Array.from({ length: 5 }, (_, index) => index);
@@ -20,7 +21,8 @@ export default async function Page() {
         <Card>
           <div className="flex w-full justify-between items-center">
             <Header1 text="Games" />
-            <AddGameButton />
+            {/* <AddGameButton /> */}
+            <Button variant="secondary" href="/add-game" text="+ Add Game" />
           </div>
           {numGames.map((game) => (
             <GameCard
