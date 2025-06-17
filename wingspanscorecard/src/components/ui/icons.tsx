@@ -89,9 +89,9 @@ export function HamburgerIcon({ className }: { className?: string }) {
       <path
         d="M3 17H21M3 12H21M3 7H21"
         stroke="#2E3538"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
