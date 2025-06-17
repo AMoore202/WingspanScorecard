@@ -17,7 +17,7 @@ export default async function Page() {
   return (
     <>
       <MenuBar />
-      <div className="flex flex-col w-full gap-4 p-2">
+      <div className="flex flex-col w-full gap-4 p-3">
         <Card>
           <div className="flex w-full justify-between items-center">
             <Header1 text="Games" />
