@@ -13,51 +13,49 @@ export default function GameCard({
   const scoresLength = Array.from({ length: scores.length }, (_, i) => i + 1);
 
   return (
-    <div className="w-full bg-seagull-700 rounded-2xl mt-1 mb-1">
-      <div className="w-full pt-4 pb-4 pl-8 pr-8">
-        <div className="flex flex-col width-full gap-1">
-          <div className="flex justify-between w-full">
-            <div className="flex gap-2 items-center">
-              <CrownIcon className="text-white" />
-              <div className="text-white text-3xl font-semibold">
-                {winnerScore.player}
-              </div>
-            </div>
-            <div className="text-white text-3xl font-bold">
-              {winnerScore.score}
+    <div className="flex flex-col gap-2 w-[200px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl pt-3 pb-3 pl-3 pr-3 shadow-buttonCard">
+      <div className="flex flex-col gap-1 w-full pb-1">
+        <div className="flex justify-between w-full">
+          <div className="flex gap-2 items-center">
+            <CrownIcon className="text-foreground-buttonPrimary" />
+            <div className="text-foreground-buttonPrimary text-xl font-semibold">
+              {winnerScore.player}
             </div>
           </div>
-          {scoresLength.map((i) => (
-            <div key={i} className="flex justify-between w-full">
-              <div className="flex gap-2 items-center">
-                <div className="w-7 text-white text-xl font-medium text-center">
-                  {i + 1}
-                </div>
-                <div className="text-white text-xl font-medium">
-                  {scores[i - 1].player}
-                </div>
+          <div className="text-foreground-buttonPrimary text-xl font-bold">
+            {winnerScore.score}
+          </div>
+        </div>
+        {scoresLength.map((i) => (
+          <div key={i} className="flex justify-between w-full">
+            <div className="flex gap-2 items-center">
+              <div className="w-5 text-foreground-buttonPrimary text-base font-medium text-center">
+                {i + 1}
               </div>
-              <div className="text-white text-xl font-semibold">
-                {scores[i - 1].score}
-              </div>
-            </div>
-          ))}
-          <div className="flex justify-end gap-3 items-center">
-            <div className="flex items-center gap-1">
-              <CalendarIcon className="text-seagull-200" />
-              <div className="text-seagull-200 text-sm">
-                {gameData.date.toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                })}
+              <div className="text-foreground-buttonPrimary text-base font-medium">
+                {scores[i - 1].player}
               </div>
             </div>
-            <div className="flex items-center gap-1">
-              <HashtagIcon className="text-seagull-200" />
-              <div className="text-seagull-200 text-sm">
-                Game {gameData.game_number}
-              </div>
+            <div className="text-foreground-buttonPrimary text-base font-semibold">
+              {scores[i - 1].score}
             </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-end gap-2 items-center">
+        <div className="flex items-center gap-1">
+          <CalendarIcon className="text-foreground-buttonPrimarySubtle" />
+          <div className="text-foreground-buttonPrimarySubtle text-[10px]">
+            {gameData.date.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+            })}
+          </div>
+        </div>
+        <div className="flex items-center gap-[2px]">
+          <HashtagIcon className="text-foreground-buttonPrimarySubtle" />
+          <div className="text-foreground-buttonPrimarySubtle text-[10px]">
+            Game {gameData.game_number}
           </div>
         </div>
       </div>

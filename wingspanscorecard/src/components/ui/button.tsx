@@ -76,7 +76,7 @@ export default function Button({
 
   const variantStyles =
     variant === "primary"
-      ? "bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] text-foreground-primary shadow-primary"
+      ? "bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] text-foreground-buttonPrimary shadow-buttonPrimary"
       : "bg-[linear-gradient(180deg,var(--surface-buttonSecondaryStart,#E9F6FC)_0%,var(--surface-buttonSecondaryEnd,#9DD8F1)_100%)] text-foreground-buttonSecondary shadow-buttonSecondary";
 
   return (
