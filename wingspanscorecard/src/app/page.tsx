@@ -19,19 +19,24 @@ export default async function Page() {
       <MenuBar />
       <div className="flex flex-col w-full gap-4 p-3">
         <Card>
-          <div className="flex w-full justify-between items-center">
+          <div className="flex w-full justify-between items-center p-4">
             <Header1 text="Games" />
             {/* <AddGameButton /> */}
             <Button variant="secondary" href="/add-game" text="+ Add Game" />
           </div>
-          {numGames.map((game) => (
-            <GameCard
-              key={game}
-              winnerScore={scores[game][0]}
-              scores={scores[game].slice(1, 5)}
-              gameData={gameData[game]}
-            />
-          ))}
+          <div className="w-full overflow-scroll">
+            <div className="flex items-start gap-2 pl-4 pt-2 pb-8">
+              {numGames.map((game) => (
+                <GameCard
+                  key={game}
+                  winnerScore={scores[game][0]}
+                  scores={scores[game].slice(1, 5)}
+                  gameData={gameData[game]}
+                />
+              ))}
+              <div className="size-2 pr-2" aria-hidden="true" />
+            </div>
+          </div>
         </Card>
       </div>
     </>

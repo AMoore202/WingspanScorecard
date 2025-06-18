@@ -13,7 +13,7 @@ export default function GameCard({
   const scoresLength = Array.from({ length: scores.length }, (_, i) => i + 1);
 
   return (
-    <div className="flex flex-col gap-2 w-[200px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl pt-3 pb-3 pl-3 pr-3 shadow-buttonCard">
+    <div className="flex flex-col gap-2 w-[200px] min-w-[200px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl pt-3 pb-3 pl-3 pr-3 shadow-buttonCard">
       <div className="flex flex-col gap-1 w-full pb-1">
         <div className="flex justify-between w-full">
           <div className="flex gap-2 items-center">
