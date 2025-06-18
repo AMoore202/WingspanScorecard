@@ -7,5 +7,9 @@ export function MenuTitle({ text }: { text: string }) {
 }
 
 export function Header1({ text }: { text: string }) {
-  return <h1 className="text-foreground text-2xl font-semibold">{text}</h1>;
+  return (
+    <h1 className="text-foreground text-2xl font-semibold lg:text-[32px]">
+      {text}
+    </h1>
+  );
 }

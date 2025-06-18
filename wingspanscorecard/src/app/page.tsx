@@ -15,17 +15,16 @@ export default async function Page() {
   );
 
   return (
-    <>
+    <div className="flex flex-col items-center w-full h-full bg-background">
       <MenuBar />
-      <div className="flex flex-col w-full gap-4 p-3">
+      <div className="flex flex-col w-full gap-4 p-3 max-w-[1200px]">
         <Card>
           <div className="flex w-full justify-between items-center p-4">
             <Header1 text="Games" />
-            {/* <AddGameButton /> */}
             <Button variant="secondary" href="/add-game" text="+ Add Game" />
           </div>
-          <div className="w-full overflow-scroll">
-            <div className="flex items-start gap-2 pl-4 pt-2 pb-8">
+          <div className="w-full overflow-x-scroll hide-scrollbar">
+            <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-2 pb-8">
               {numGames.map((game) => (
                 <GameCard
                   key={game}
@@ -39,6 +38,6 @@ export default async function Page() {
           </div>
         </Card>
       </div>
-    </>
+    </div>
   );
 }

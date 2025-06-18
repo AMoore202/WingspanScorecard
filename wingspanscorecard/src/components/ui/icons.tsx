@@ -1,8 +1,9 @@
 export function CalendarIcon({ className }: { className: string }) {
   return (
     <svg
-      width="10"
-      height="11"
+      className={className}
+      width="100%"
+      height="100%"
       viewBox="0 0 10 11"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +25,9 @@ export function CalendarIcon({ className }: { className: string }) {
 export function CrownIcon({ className }: { className: string }) {
   return (
     <svg
-      width="20"
-      height="20"
+      className={className}
+      width="100%"
+      height="100%"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +43,9 @@ export function CrownIcon({ className }: { className: string }) {
 export function HashtagIcon({ className }: { className: string }) {
   return (
     <svg
-      width="10"
-      height="11"
+      className={className}
+      width="100%"
+      height="100%"
       viewBox="0 0 10 11"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
