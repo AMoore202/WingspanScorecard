@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PlayerScore, Game } from "@/lib/definitions";
 import { CalendarIcon, CrownIcon, HashtagIcon } from "@/components/ui/icons";
 
@@ -13,7 +14,10 @@ export default function GameCard({
   const scoresLength = Array.from({ length: scores.length }, (_, i) => i + 1);
 
   return (
-    <div className="flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard">
+    <Link
+      href={`/games/${gameData.id}`}
+      className="flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard"
+    >
       <div className="flex flex-col gap-1 w-full pb-1">
         <div className="flex justify-between w-full">
           <div className="flex gap-2 items-center">
@@ -59,6 +63,6 @@ export default function GameCard({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

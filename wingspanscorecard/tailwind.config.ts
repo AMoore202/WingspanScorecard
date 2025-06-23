@@ -1,3 +1,4 @@
+import { table } from "console";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -45,6 +46,7 @@ const config: Config = {
 				buttonPrimaryEnd: 'hsl(var(--surface-button-primary-end))',
 				buttonSecondaryStart: 'hsl(var(--surface-button-secondary-start))',
 				buttonSecondaryEnd: 'hsl(var(--surface-button-secondary-end))',
+				well: 'hsl(var(--surface-well))',
 			},
 			foreground: {
 				DEFAULT: 'hsl(var(--foreground-default))',
@@ -52,6 +54,13 @@ const config: Config = {
 				buttonPrimary: 'hsl(var(--foreground-button-primary))',
 				buttonPrimarySubtle: 'hsl(var(--foreground-button-primary-subtle))',
 				buttonSecondary: 'hsl(var(--foreground-button-secondary))',
+				label: 'hsl(var(--foreground-label))',
+				tableText: 'hsl(var(--foreground-table-text))',
+				subtle: 'hsl(var(--foreground-subtle))',
+			},
+			border: {
+				DEFAULT: 'hsl(var(--border-default))',
+				table: 'hsl(var(--border-table))',
 			},
   		},
   		boxShadow: {

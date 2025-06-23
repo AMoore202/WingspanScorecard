@@ -24,11 +24,17 @@ body {
     --surface-button-primary-end: 197 75% 28%;
     --surface-button-secondary-start: 199 76% 95%;
     --surface-secondary-end: 198 75% 78%;
+    --surface-well: 192 10% 90%;
     --foreground-default: 198 10% 20%;
     --foreground-accent: 197 75% 28%;
     --foreground-button-primary: 0 0% 100%;
     --foreground-button-primary-subtle: 198 75% 78%;
     --foreground-button-secondary: 197 75% 28%;
+    --foreground-label: 198 10% 40%;
+    --foreground-table-text: 192 10% 10%; 
+    --foreground-subtle: 196 10% 30%;
+    --border-default: 198 10% 80%;
+    --border-table: 196 10% 70%;
 
     --radius-card: 1rem;
     --radius-button: 1rem;
