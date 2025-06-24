@@ -6,18 +6,21 @@ export default function GameCard({
   winnerScore,
   scores,
   gameData,
+  showGameInfo = true,
+  className = "",
+  isLink = true,
 }: {
   winnerScore: PlayerScore;
   scores: Array<PlayerScore>;
   gameData: Game;
+  showGameInfo?: boolean;
+  className?: string;
+  isLink?: boolean;
 }) {
   const scoresLength = Array.from({ length: scores.length }, (_, i) => i + 1);
 
-  return (
-    <Link
-      href={`/games/${gameData.id}`}
-      className="flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard"
-    >
+  const content = (
+    <>
       <div className="flex flex-col gap-1 w-full pb-1">
         <div className="flex justify-between w-full">
           <div className="flex gap-2 items-center">
@@ -46,23 +49,39 @@ export default function GameCard({
           </div>
         ))}
       </div>
-      <div className="flex justify-end gap-2 items-center">
-        <div className="flex items-center gap-[3px] lg:gap-[5px]">
-          <CalendarIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
-          <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
-            {gameData.date.toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-            })}
+      {showGameInfo && (
+        <div className="flex justify-end gap-2 items-center">
+          <div className="flex items-center gap-[3px] lg:gap-[5px]">
+            <CalendarIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
+            <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
+              {gameData.date.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+              })}
+            </div>
+          </div>
+          <div className="flex items-center gap-[1px] lg:gap-[3px]">
+            <HashtagIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
+            <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
+              Game {gameData.game_number}
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-[1px] lg:gap-[3px]">
-          <HashtagIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
-          <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
-            Game {gameData.game_number}
-          </div>
-        </div>
-      </div>
+      )}
+    </>
+  );
+  return isLink ? (
+    <Link
+      href={`/games/${gameData.id}`}
+      className={`flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard ${className}`}
+    >
+      {content}
     </Link>
+  ) : (
+    <div
+      className={`flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard ${className}`}
+    >
+      {content}
+    </div>
   );
 }

@@ -12,7 +12,11 @@ export type PlayerScore = {
 export type Game = {
     id: number;
     date: Date;
+    time: Date;
     game_number: number;
+    european_expansion: boolean;
+    oceania_expansion: boolean;
+    asian_expansion: boolean;
 };
 
 export type Score = {

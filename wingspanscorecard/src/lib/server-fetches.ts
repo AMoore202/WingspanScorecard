@@ -45,6 +45,35 @@ export async function fetchGameData() {
     }
 }
 
+export async function fetchGameDataById(id: number) {
+    noStore();
+    try {
+        const data = await sql<Game>`
+        WITH OrderedGames AS (
+            SELECT 
+                id, 
+                date,
+                time,
+                european_expansion,
+                oceania_expansion,
+                asian_expansion,
+                ROW_NUMBER() OVER(PARTITION BY date ORDER BY time) AS game_number
+            FROM 
+                games
+        )
+        SELECT id, date, time, game_number, european_expansion, oceania_expansion, asian_expansion FROM OrderedGames
+            WHERE 
+                id = ${id}
+        `;
+
+        const gameData = data.rows;
+        return gameData;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to select game data');
+    }
+}
+
 export async function fetchScores(gameId: number) {
     noStore();
     try {
