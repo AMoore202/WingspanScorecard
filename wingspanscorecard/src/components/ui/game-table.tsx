@@ -1,4 +1,12 @@
 import clsx from "clsx";
+import { ScoreClean } from "@/lib/definitions";
+
+function sumArray(array: number[]) {
+  return array.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+}
 
 function HeaderFooterCell({
   text,
@@ -51,9 +59,9 @@ function RowLabel({
   );
 }
 
-export default function GameTable() {
+export default function GameTable({ scores }: { scores: ScoreClean[] }) {
   return (
-    <div className="flex border border-border-table rounded-card bg-surface-card overflow-hidden w-max">
+    <div className="flex border border-border-table rounded-lg bg-surface-card overflow-hidden w-max">
       <TableCol>
         <RowLabel header={true} text="" />
         <RowLabel text="Bird Points" />
@@ -65,39 +73,28 @@ export default function GameTable() {
         <RowLabel text="Nectar" />
         <RowLabel header={true} text="Total" className="border-none" />
       </TableCol>
-      <TableCol>
-        <HeaderFooterCell text="Katie" />
-        <TableCell text="40" />
-        <TableCell text="20" />
-        <TableCell text="17" />
-        <TableCell text="8" />
-        <TableCell text="16" />
-        <TableCell text="12" />
-        <TableCell text="5" />
-        <HeaderFooterCell text="122" className="border-none" />
-      </TableCol>
-      <TableCol>
-        <HeaderFooterCell text="Katie" />
-        <TableCell text="40" />
-        <TableCell text="20" />
-        <TableCell text="17" />
-        <TableCell text="8" />
-        <TableCell text="16" />
-        <TableCell text="12" />
-        <TableCell text="5" />
-        <HeaderFooterCell text="122" className="border-none" />
-      </TableCol>
-      <TableCol>
-        <HeaderFooterCell text="Katie" />
-        <TableCell text="40" />
-        <TableCell text="20" />
-        <TableCell text="17" />
-        <TableCell text="8" />
-        <TableCell text="16" />
-        <TableCell text="12" />
-        <TableCell text="5" />
-        <HeaderFooterCell text="122" className="border-none" />
-      </TableCol>
+      {scores.map((player) => (
+        <div key={player.player} className="flex">
+          <TableCol>
+            <HeaderFooterCell text={player.player} />
+            <TableCell text={player.bird_points.toString()} />
+            <TableCell text={player.bonus_cards.toString()} />
+            <TableCell text={player.end_of_round_goals.toString()} />
+            <TableCell text={player.eggs.toString()} />
+            <TableCell text={player.food_on_cards.toString()} />
+            <TableCell text={player.tucked_cards.toString()} />
+            <TableCell text={player.nectar.toString()} />
+            <HeaderFooterCell
+              text={sumArray(
+                Object.values(player).filter(
+                  (v): v is number => typeof v === "number"
+                )
+              ).toString()}
+              className="border-none"
+            />
+          </TableCol>
+        </div>
+      ))}
     </div>
   );
 }

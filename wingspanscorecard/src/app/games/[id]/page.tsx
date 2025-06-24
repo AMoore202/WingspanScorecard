@@ -85,7 +85,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             </div>
             <div className="w-full overflow-x-scroll hide-scrollbar">
               <div className="flex items-start px-4 pt-2 pb-4 w-max">
-                <GameTable />
+                <GameTable scores={rawScores} />
                 <div className="size-2 pr-2" aria-hidden="true" />
               </div>
             </div>
