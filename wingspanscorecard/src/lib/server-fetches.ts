@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Player, Game, PlayerScore } from '@/lib/definitions';
+import { Player, Game, PlayerScore, ScoreClean } from '@/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchPlayers() {
@@ -98,5 +98,31 @@ export async function fetchScores(gameId: number) {
     } catch (err) {
         console.error('Database Error:', err);
         throw new Error('Failed to fetch scores');
+    }
+}
+
+export async function fetchRawScoresById(id: number) {
+    noStore();
+    try {
+        const data = await sql<ScoreClean>`
+        SELECT
+            players.name as player,
+            scores.bird_points,
+            scores.bonus_cards,
+            scores.end_of_round_goals,
+            scores.eggs,
+            scores.food_on_cards,
+            scores.tucked_cards,
+            scores.nectar
+        FROM scores
+        JOIN players ON scores.player_id = players.id
+        WHERE scores.game_id = ${id}
+        ORDER BY player ASC
+        `;
+        const rawScores = data.rows;
+        return rawScores;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch raw scores');
     }
 }

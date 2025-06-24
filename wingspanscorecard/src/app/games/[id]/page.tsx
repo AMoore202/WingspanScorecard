@@ -2,20 +2,27 @@ import MenuBar from "@/components/ui/menu-bar";
 import Card from "@/components/ui/card";
 import { Header1, Header2, Text, LabelText } from "@/components/ui/typography";
 import ExpansionPill from "@/components/ui/expansion-pill";
-import { fetchScores, fetchGameDataById } from "@/lib/server-fetches";
+import {
+  fetchScores,
+  fetchGameDataById,
+  fetchRawScoresById,
+} from "@/lib/server-fetches";
 import GameCard from "@/components/ui/recent-games/game-card";
+import GameTable from "@/components/ui/game-table";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
   const scores = await fetchScores(Number(id));
   const gameData = await fetchGameDataById(Number(id));
+  const rawScores = await fetchRawScoresById(Number(id));
+  // console.log("Raw Scores:", rawScores);
 
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
       <MenuBar />
       <div className="w-full p-3">
-        <Card className="w-full gap-2 pb-4">
+        <Card className="w-full gap-2">
           <div className="flex w-full items-center px-4 pt-4">
             <Header1 text="Game Details" />
           </div>
@@ -69,6 +76,17 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                     <ExpansionPill expansion="asia" />
                   )}
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full gap-2">
+            <div className="px-4">
+              <Header2 text="Breakdown" />
+            </div>
+            <div className="w-full overflow-x-scroll hide-scrollbar">
+              <div className="flex items-start px-4 pt-2 pb-4 w-max">
+                <GameTable />
+                <div className="size-2 pr-2" aria-hidden="true" />
               </div>
             </div>
           </div>

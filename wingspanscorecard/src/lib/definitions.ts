@@ -32,6 +32,17 @@ export type Score = {
     nectar: number;
 };
 
+export type ScoreClean = {
+    player: string;
+    bird_points: number;
+    bonus_cards: number;
+    end_of_round_goals: number;
+    eggs: number;
+    food_on_cards: number;
+    tucked_cards: number;
+    nectar: number;
+};
+
 export type ScoredGame = {
     game: Game;
     scores: Array<PlayerScore>;
