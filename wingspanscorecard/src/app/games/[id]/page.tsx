@@ -18,6 +18,19 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   const rawScores = await fetchRawScoresById(Number(id));
   // console.log("Raw Scores:", rawScores);
 
+  const expansionsContent =
+    !gameData[0].european_expansion &&
+    !gameData[0].oceania_expansion &&
+    !gameData[0].asian_expansion ? (
+      <Text text="None" />
+    ) : (
+      <div className="flex gap-[6px] mt-1">
+        {gameData[0].european_expansion && <ExpansionPill expansion="europe" />}
+        {gameData[0].oceania_expansion && <ExpansionPill expansion="oceania" />}
+        {gameData[0].asian_expansion && <ExpansionPill expansion="asia" />}
+      </div>
+    );
+
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
       <MenuBar />
@@ -63,9 +76,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col">
                 <LabelText text="Expansions" />
-                <div className="flex gap-[6px]">
+                {expansionsContent}
+                {/* <div className="flex gap-[6px]">
                   {gameData[0].european_expansion && (
                     <ExpansionPill expansion="europe" />
                   )}
@@ -75,7 +89,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                   {gameData[0].asian_expansion && (
                     <ExpansionPill expansion="asia" />
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
