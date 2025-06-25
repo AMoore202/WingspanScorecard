@@ -71,7 +71,14 @@ const config: Config = {
   		borderRadius: {
   			card: 'var(--radius-card)',
 			button: 'var(--radius-button)',
-  		}
+  		},
+		keyframes: {
+      		shimmer: {
+        		'100%': {
+          		transform: 'translateX(100%)',
+        		},
+      		},
+    	},
   	}
   },
   plugins: [require("tailwindcss-animate")],

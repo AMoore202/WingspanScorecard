@@ -9,14 +9,17 @@ import {
 } from "@/lib/server-fetches";
 import GameCard from "@/components/ui/recent-games/game-card";
 import GameTable from "@/components/ui/game-table";
+import { Suspense } from "react";
+import { TableSkeleton } from "@/components/ui/skeletons";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const scores = await fetchScores(Number(id));
-  const gameData = await fetchGameDataById(Number(id));
-  const rawScores = await fetchRawScoresById(Number(id));
-  // console.log("Raw Scores:", rawScores);
+  const [scores, gameData, rawScores] = await Promise.all([
+    fetchScores(Number(id)),
+    fetchGameDataById(Number(id)),
+    fetchRawScoresById(Number(id)),
+  ]);
 
   const expansionsContent =
     !gameData[0].european_expansion &&
@@ -41,14 +44,16 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           </div>
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Scores" />
-            <GameCard
-              winnerScore={scores[0]}
-              scores={scores.slice(1, 5)}
-              gameData={gameData[0]}
-              showGameInfo={false}
-              className="w-full my-2"
-              isLink={false}
-            />
+            <Suspense fallback={<TableSkeleton />}>
+              <GameCard
+                winnerScore={scores[0]}
+                scores={scores.slice(1, 5)}
+                gameData={gameData[0]}
+                showGameInfo={false}
+                className="w-full my-2"
+                isLink={false}
+              />
+            </Suspense>
           </div>
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Game Info" />
@@ -79,17 +84,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               <div className="flex flex-col">
                 <LabelText text="Expansions" />
                 {expansionsContent}
-                {/* <div className="flex gap-[6px]">
-                  {gameData[0].european_expansion && (
-                    <ExpansionPill expansion="europe" />
-                  )}
-                  {gameData[0].oceania_expansion && (
-                    <ExpansionPill expansion="oceania" />
-                  )}
-                  {gameData[0].asian_expansion && (
-                    <ExpansionPill expansion="asia" />
-                  )}
-                </div> */}
               </div>
             </div>
           </div>
@@ -99,7 +93,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             </div>
             <div className="w-full overflow-x-scroll hide-scrollbar">
               <div className="flex items-start px-4 pt-2 pb-4 w-max">
-                <GameTable scores={rawScores} />
+                <Suspense fallback={<TableSkeleton />}>
+                  <GameTable scores={rawScores} />
+                </Suspense>
                 <div className="size-2 pr-2" aria-hidden="true" />
               </div>
             </div>
