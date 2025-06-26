@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ScoreClean } from "@/lib/definitions";
+import { fetchRawScoresById } from "@/lib/server-fetches";
 
 function sumArray(array: number[]) {
   return array.reduce(
@@ -59,7 +59,9 @@ function RowLabel({
   );
 }
 
-export default function GameTable({ scores }: { scores: ScoreClean[] }) {
+export default async function GameTable({ id }: { id: number }) {
+  const scores = await fetchRawScoresById(id);
+
   return (
     <div className="flex border border-border-table rounded-lg bg-surface-card overflow-hidden w-max">
       <TableCol>

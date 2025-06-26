@@ -44,16 +44,14 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           </div>
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Scores" />
-            <Suspense fallback={<TableSkeleton />}>
-              <GameCard
-                winnerScore={scores[0]}
-                scores={scores.slice(1, 5)}
-                gameData={gameData[0]}
-                showGameInfo={false}
-                className="w-full my-2"
-                isLink={false}
-              />
-            </Suspense>
+            <GameCard
+              winnerScore={scores[0]}
+              scores={scores.slice(1, 5)}
+              gameData={gameData[0]}
+              showGameInfo={false}
+              className="w-full my-2"
+              isLink={false}
+            />
           </div>
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Game Info" />
@@ -94,7 +92,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <div className="w-full overflow-x-scroll hide-scrollbar">
               <div className="flex items-start px-4 pt-2 pb-4 w-max">
                 <Suspense fallback={<TableSkeleton />}>
-                  <GameTable scores={rawScores} />
+                  <GameTable id={Number(id)} />
                 </Suspense>
                 <div className="size-2 pr-2" aria-hidden="true" />
               </div>
