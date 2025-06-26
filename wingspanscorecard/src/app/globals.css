@@ -25,6 +25,7 @@ body {
     --surface-button-secondary-start: 199 76% 95%;
     --surface-secondary-end: 198 75% 78%;
     --surface-well: 192 10% 90%;
+    --surface-skeleton: 200 12% 95%;
     --foreground-default: 198 10% 20%;
     --foreground-accent: 197 75% 28%;
     --foreground-button-primary: 0 0% 100%;

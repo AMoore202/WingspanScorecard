@@ -15,10 +15,9 @@ import { TableSkeleton } from "@/components/ui/skeletons";
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const [scores, gameData, rawScores] = await Promise.all([
+  const [scores, gameData] = await Promise.all([
     fetchScores(Number(id)),
     fetchGameDataById(Number(id)),
-    fetchRawScoresById(Number(id)),
   ]);
 
   const expansionsContent =

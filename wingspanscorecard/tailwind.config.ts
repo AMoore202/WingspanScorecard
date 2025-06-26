@@ -47,6 +47,7 @@ const config: Config = {
 				buttonSecondaryStart: 'hsl(var(--surface-button-secondary-start))',
 				buttonSecondaryEnd: 'hsl(var(--surface-button-secondary-end))',
 				well: 'hsl(var(--surface-well))',
+				skeleton: 'hsl(var(--surface-skeleton))',
 			},
 			foreground: {
 				DEFAULT: 'hsl(var(--foreground-default))',
