@@ -1,12 +1,7 @@
 import MenuBar from "@/components/ui/menu-bar";
 import Card from "@/components/ui/card";
-import { Header1, Header2, Text, LabelText } from "@/components/ui/typography";
-// import ExpansionPill from "@/components/ui/expansion-pill";
-import {
-  fetchScores,
-  fetchGameDataById,
-  fetchRawScoresById,
-} from "@/lib/server-fetches";
+import { Header1, Header2 } from "@/components/ui/typography";
+import { fetchScores, fetchGameDataById } from "@/lib/server-fetches";
 import GameCard from "@/components/ui/recent-games/game-card";
 import GameTable from "@/components/ui/game-table";
 import { Suspense } from "react";
@@ -20,19 +15,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     fetchScores(Number(id)),
     fetchGameDataById(Number(id)),
   ]);
-
-  // const expansionsContent =
-  //   !gameData[0].european_expansion &&
-  //   !gameData[0].oceania_expansion &&
-  //   !gameData[0].asian_expansion ? (
-  //     <Text text="None" />
-  //   ) : (
-  //     <div className="flex gap-[6px] mt-1">
-  //       {gameData[0].european_expansion && <ExpansionPill expansion="europe" />}
-  //       {gameData[0].oceania_expansion && <ExpansionPill expansion="oceania" />}
-  //       {gameData[0].asian_expansion && <ExpansionPill expansion="asia" />}
-  //     </div>
-  //   );
 
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
@@ -58,35 +40,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <Suspense fallback={<GameInfoSkeleton />}>
               <GameInfo id={Number(id)} />
             </Suspense>
-            {/* <div className="flex flex-col gap-3 w-full my-2">
-              <div className="flex gap-3 w-full">
-                <div className="flex flex-col w-full">
-                  <LabelText text="Date" />
-                  <Text
-                    text={new Date(gameData[0].date).toLocaleDateString(
-                      "en-US",
-                      { month: "short", day: "numeric", year: "numeric" }
-                    )}
-                  />
-                </div>
-                <div className="flex flex-col w-full">
-                  <LabelText text="Time" />
-                  <Text
-                    text={new Date(
-                      `1970-01-01T${gameData[0].time}`
-                    ).toLocaleTimeString("en-US", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <LabelText text="Expansions" />
-                {expansionsContent}
-              </div>
-            </div> */}
           </div>
           <div className="flex flex-col w-full gap-2">
             <div className="px-4">
