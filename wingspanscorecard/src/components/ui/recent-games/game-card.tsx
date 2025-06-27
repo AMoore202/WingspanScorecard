@@ -1,23 +1,29 @@
 import Link from "next/link";
 import { PlayerScore, Game } from "@/lib/definitions";
 import { CalendarIcon, CrownIcon, HashtagIcon } from "@/components/ui/icons";
+import { fetchGameDataById, fetchScores } from "@/lib/server-fetches";
 
-export default function GameCard({
-  winnerScore,
-  scores,
-  gameData,
+export default async function GameCard({
+  id,
   showGameInfo = true,
   className = "",
   isLink = true,
 }: {
-  winnerScore: PlayerScore;
-  scores: Array<PlayerScore>;
-  gameData: Game;
+  id: number;
   showGameInfo?: boolean;
   className?: string;
   isLink?: boolean;
 }) {
-  const scoresLength = Array.from({ length: scores.length }, (_, i) => i + 1);
+  const scores = await fetchScores(id);
+
+  if (scores.length === 0) return null;
+
+  const winnerScore: PlayerScore = scores.reduce((top, current) =>
+    current.score > top.score ? current : top
+  );
+
+  const game: Game | null =
+    showGameInfo || isLink ? await fetchGameDataById(id) : null;
 
   const content = (
     <>
@@ -33,28 +39,28 @@ export default function GameCard({
             {winnerScore.score}
           </div>
         </div>
-        {scoresLength.map((i) => (
+        {scores.map((score, i) => (
           <div key={i} className="flex justify-between w-full">
             <div className="flex gap-2 items-center">
               <div className="w-5 lg:w-6 text-foreground-buttonPrimary text-base lg:text-xl font-medium text-center">
-                {i + 1}
+                {i + 2}
               </div>
               <div className="text-foreground-buttonPrimary text-base lg:text-xl font-medium">
-                {scores[i - 1].player}
+                {score.player}
               </div>
             </div>
             <div className="text-foreground-buttonPrimary text-base lg:text-xl font-semibold">
-              {scores[i - 1].score}
+              {score.score}
             </div>
           </div>
         ))}
       </div>
-      {showGameInfo && (
+      {showGameInfo && game && (
         <div className="flex justify-end gap-2 items-center">
           <div className="flex items-center gap-[3px] lg:gap-[5px]">
             <CalendarIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
             <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
-              {gameData.date.toLocaleDateString("en-US", {
+              {game.date.toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
               })}
@@ -63,25 +69,22 @@ export default function GameCard({
           <div className="flex items-center gap-[1px] lg:gap-[3px]">
             <HashtagIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
             <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
-              Game {gameData.game_number}
+              Game {game.game_number}
             </div>
           </div>
         </div>
       )}
     </>
   );
-  return isLink ? (
-    <Link
-      href={`/games/${gameData.id}`}
-      className={`flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard ${className}`}
-    >
-      {content}
-    </Link>
-  ) : (
-    <div
-      className={`flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard ${className}`}
-    >
-      {content}
-    </div>
-  );
+
+  const wrapperClasses = `flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard ${className}`;
+
+  if (isLink && game) {
+    return (
+      <Link href={`/games/${game.id}`} className={wrapperClasses}>
+        {content}
+      </Link>
+    );
+  }
+  return <div className={wrapperClasses}>{content}</div>;
 }

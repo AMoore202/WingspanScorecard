@@ -11,10 +11,6 @@ import GameInfo from "@/components/ui/game-info";
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const [scores, gameData] = await Promise.all([
-    fetchScores(Number(id)),
-    fetchGameDataById(Number(id)),
-  ]);
 
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
@@ -27,9 +23,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Scores" />
             <GameCard
-              winnerScore={scores[0]}
-              scores={scores.slice(1, 5)}
-              gameData={gameData[0]}
+              id={Number(id)}
               showGameInfo={false}
               className="w-full my-2"
               isLink={false}

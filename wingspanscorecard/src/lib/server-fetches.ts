@@ -45,6 +45,24 @@ export async function fetchGameData() {
     }
 }
 
+export async function fetchLatestGameIds() {
+    noStore();
+    try {
+        const data = await sql<{ id: number }>`
+            SELECT 
+                id
+            FROM 
+                games
+            ORDER BY date DESC, time DESC LIMIT 5
+        `;
+
+        return data.rows.map(row => row.id);
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to select game ids');
+    }
+}
+
 export async function fetchGameDataById(id: number) {
     noStore();
     try {
@@ -66,8 +84,7 @@ export async function fetchGameDataById(id: number) {
                 id = ${id}
         `;
 
-        const gameData = data.rows;
-        return gameData;
+        return data.rows[0]  ?? null;
     } catch (err) {
         console.error('Database Error:', err);
         throw new Error('Failed to select game data');

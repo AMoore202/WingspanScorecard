@@ -6,15 +6,15 @@ export default async function GameInfo({ id }: { id: number }) {
   const gameData = await fetchGameDataById(id);
 
   const expansionsContent =
-    !gameData[0].european_expansion &&
-    !gameData[0].oceania_expansion &&
-    !gameData[0].asian_expansion ? (
+    !gameData.european_expansion &&
+    !gameData.oceania_expansion &&
+    !gameData.asian_expansion ? (
       <Text text="None" />
     ) : (
       <div className="flex gap-[6px] mt-1">
-        {gameData[0].european_expansion && <ExpansionPill expansion="europe" />}
-        {gameData[0].oceania_expansion && <ExpansionPill expansion="oceania" />}
-        {gameData[0].asian_expansion && <ExpansionPill expansion="asia" />}
+        {gameData.european_expansion && <ExpansionPill expansion="europe" />}
+        {gameData.oceania_expansion && <ExpansionPill expansion="oceania" />}
+        {gameData.asian_expansion && <ExpansionPill expansion="asia" />}
       </div>
     );
 
@@ -24,7 +24,7 @@ export default async function GameInfo({ id }: { id: number }) {
         <div className="flex flex-col w-full">
           <LabelText text="Date" />
           <Text
-            text={new Date(gameData[0].date).toLocaleDateString("en-US", {
+            text={new Date(gameData.date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
@@ -34,7 +34,7 @@ export default async function GameInfo({ id }: { id: number }) {
         <div className="flex flex-col w-full">
           <LabelText text="Time" />
           <Text
-            text={new Date(`1970-01-01T${gameData[0].time}`).toLocaleTimeString(
+            text={new Date(`1970-01-01T${gameData.time}`).toLocaleTimeString(
               "en-US",
               {
                 hour: "numeric",
