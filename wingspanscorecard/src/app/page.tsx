@@ -1,14 +1,12 @@
 import React from "react";
 import MenuBar from "@/components/ui/menu-bar";
 import GameCard from "@/components/ui/recent-games/game-card";
-import {
-  fetchGameData,
-  fetchScores,
-  fetchLatestGameIds,
-} from "@/lib/server-fetches";
+import { fetchLatestGameIds } from "@/lib/server-fetches";
 import Card from "@/components/ui/card";
 import { Header1 } from "@/components/ui/typography";
 import Button from "@/components/ui/button";
+import { Suspense } from "react";
+import { GameCardSkeleton } from "@/components/ui/skeletons";
 
 export default async function Page() {
   const numGames = Array.from({ length: 5 }, (_, index) => index);
@@ -26,7 +24,9 @@ export default async function Page() {
           <div className="w-full overflow-x-scroll hide-scrollbar">
             <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-2 pb-8">
               {gameIds.map((id) => (
-                <GameCard key={id} id={id} />
+                <Suspense key={id} fallback={<GameCardSkeleton />}>
+                  <GameCard key={id} id={id} />
+                </Suspense>
               ))}
               <div className="size-2 pr-2" aria-hidden="true" />
             </div>

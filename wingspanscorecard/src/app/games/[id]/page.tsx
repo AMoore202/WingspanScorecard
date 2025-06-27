@@ -1,11 +1,14 @@
 import MenuBar from "@/components/ui/menu-bar";
 import Card from "@/components/ui/card";
 import { Header1, Header2 } from "@/components/ui/typography";
-import { fetchScores, fetchGameDataById } from "@/lib/server-fetches";
 import GameCard from "@/components/ui/recent-games/game-card";
 import GameTable from "@/components/ui/game-table";
 import { Suspense } from "react";
-import { TableSkeleton, GameInfoSkeleton } from "@/components/ui/skeletons";
+import {
+  TableSkeleton,
+  GameInfoSkeleton,
+  GameCardSkeleton,
+} from "@/components/ui/skeletons";
 import GameInfo from "@/components/ui/game-info";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -22,12 +25,14 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           </div>
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Scores" />
-            <GameCard
-              id={Number(id)}
-              showGameInfo={false}
-              className="w-full my-2"
-              isLink={false}
-            />
+            <Suspense fallback={<GameCardSkeleton className="w-full" />}>
+              <GameCard
+                id={Number(id)}
+                showGameInfo={false}
+                className="w-full my-2"
+                isLink={false}
+              />
+            </Suspense>
           </div>
           <div className="flex flex-col w-full items-center px-4 gap-2">
             <Header2 text="Game Info" />

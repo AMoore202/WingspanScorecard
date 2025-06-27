@@ -63,3 +63,11 @@ export function GameInfoSkeleton() {
     </div>
   );
 }
+
+export function GameCardSkeleton({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`${shimmer} ${className} relative overflow-hidden w-[200px] min-w-[200px] h-[125px] rounded-2xl bg-surface-skeleton`}
+    />
+  );
+}
