@@ -9,7 +9,6 @@ import { Suspense } from "react";
 import { GameCardSkeleton } from "@/components/ui/skeletons";
 
 export default async function Page() {
-  const numGames = Array.from({ length: 5 }, (_, index) => index);
   const gameIds = await fetchLatestGameIds();
 
   return (
