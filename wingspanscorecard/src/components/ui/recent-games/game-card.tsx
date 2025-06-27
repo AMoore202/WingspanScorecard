@@ -22,6 +22,10 @@ export default async function GameCard({
     current.score > top.score ? current : top
   );
 
+  const otherScores = scores.filter(
+    (score) => score.player !== winnerScore.player
+  );
+
   const game: Game | null =
     showGameInfo || isLink ? await fetchGameDataById(id) : null;
 
@@ -39,7 +43,7 @@ export default async function GameCard({
             {winnerScore.score}
           </div>
         </div>
-        {scores.map((score, i) => (
+        {otherScores.map((score, i) => (
           <div key={i} className="flex justify-between w-full">
             <div className="flex gap-2 items-center">
               <div className="w-5 lg:w-6 text-foreground-buttonPrimary text-base lg:text-xl font-medium text-center">
