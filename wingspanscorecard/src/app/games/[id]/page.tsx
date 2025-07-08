@@ -1,15 +1,15 @@
+import { Suspense } from "react";
 import MenuBar from "@/components/ui/menu-bar";
+import GameCard from "@/components/ui/recent-games/game-card";
 import Card from "@/components/ui/card";
 import { Header1, Header2 } from "@/components/ui/typography";
-import GameCard from "@/components/ui/recent-games/game-card";
 import GameTable from "@/components/ui/game-table";
-import { Suspense } from "react";
+import GameInfo from "@/components/ui/game-info";
 import {
   TableSkeleton,
   GameInfoSkeleton,
   GameCardSkeleton,
 } from "@/components/ui/skeletons";
-import GameInfo from "@/components/ui/game-info";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

@@ -6,7 +6,7 @@ const redhat = Red_Hat_Display({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Wingspan Scorecard",
-  description: "Scorecard for tracking scores from the game Winspan",
+  description: "Scorecard for tracking scores from the game Wingspan",
 };
 
 export default function RootLayout({

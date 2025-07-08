@@ -1,12 +1,12 @@
 import React from "react";
+import { Suspense } from "react";
 import MenuBar from "@/components/ui/menu-bar";
 import GameCard from "@/components/ui/recent-games/game-card";
-import { fetchLatestGameIds } from "@/lib/server-fetches";
 import Card from "@/components/ui/card";
 import { Header1 } from "@/components/ui/typography";
 import Button from "@/components/ui/button";
-import { Suspense } from "react";
 import { GameCardSkeleton } from "@/components/ui/skeletons";
+import { fetchLatestGameIds } from "@/lib/server-fetches";
 
 export default async function Page() {
   const gameIds = await fetchLatestGameIds();
