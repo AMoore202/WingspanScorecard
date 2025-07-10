@@ -1,8 +1,39 @@
+"use client";
+
+import { useState, useRef, useEffect, use } from "react";
 import { MenuTitle } from "@/components/ui/typography";
-import { LogoIcon, HamburgerIcon } from "@/components/ui/icons";
+import { LogoIcon, HamburgerIcon, HomeIcon } from "@/components/ui/icons";
 import Link from "next/link";
 
 export default function MenuBar() {
+  const [showPopover, setShowPopover] = useState(false);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  const handleMenuClick = () => {
+    setShowPopover(!showPopover);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target as Node)
+      ) {
+        setShowPopover(false);
+      }
+    }
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPopover]);
+
   return (
     <div className="flex justify-between items-center w-full p-4">
       <Link
@@ -12,8 +43,27 @@ export default function MenuBar() {
         <LogoIcon className="w-[17px] h-auto lg:w-[25.5px]" />
       </Link>
       <MenuTitle text="Wingspan Scorecard" />
-      <div className="flex items-center justify-center size-9 lg:size-14">
-        <HamburgerIcon className="" />
+      <div className="relative" ref={popoverRef}>
+        <button
+          onClick={handleMenuClick}
+          className="flex items-center justify-center size-9 lg:size-14"
+        >
+          <HamburgerIcon className="" />
+        </button>
+        <div
+          className={`absolute right-0 top-full p-2 w-[120px] rounded-lg bg-surface-card shadow-card transition-all duration-150 ease-in-out z-10 ${
+            showPopover
+              ? "opacity-100 scale-100 pointer-events-auto"
+              : "opacity-0 scale-96 pointer-events-none -translate-y-1"
+          }`}
+        >
+          <Link href="/" className="px-[6px] py-2 flex items-center gap-[6px]">
+            <HomeIcon />
+            <p className="font-semibold text-base text-foreground-subtle">
+              Home
+            </p>
+          </Link>
+        </div>
       </div>
     </div>
   );
