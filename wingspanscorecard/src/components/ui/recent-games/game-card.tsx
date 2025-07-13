@@ -81,7 +81,7 @@ export default async function GameCard({
     </>
   );
 
-  const wrapperClasses = `flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard ${className}`;
+  const wrapperClasses = `flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStart,#187FA9)_0%,var(--surface-buttonPrimaryEnd,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus/75 ${className}`;
 
   if (isLink && game) {
     return (

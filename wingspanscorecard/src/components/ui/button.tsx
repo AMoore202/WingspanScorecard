@@ -14,7 +14,7 @@ export default function Button({
   className = "",
 }: ButtonProps) {
   const baseStyles =
-    "flex items-center justify-center rounded-button text-base font-medium pl-3 pr-3 pt-[6px] pb-[6px] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-2 focus-visible:ring-seagull-700/50 disabled:pointer-events-none disabled:opacity-50 lg:text-xl";
+    "flex items-center justify-center rounded-button text-base font-medium pl-3 pr-3 pt-[6px] pb-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus/75 disabled:pointer-events-none disabled:opacity-50 lg:text-xl";
 
   const variantStyles =
     variant === "primary"
