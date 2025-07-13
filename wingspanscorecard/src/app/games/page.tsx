@@ -9,8 +9,10 @@ import { fetchPlayers } from "@/lib/server-fetches";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { player?: string };
+  searchParams: { player?: string; page?: string };
 }) {
+  const page = parseInt(searchParams.page || "1", 10);
+
   const players = await fetchPlayers();
 
   const selectedPlayerId = searchParams.player

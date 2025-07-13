@@ -21,8 +21,10 @@ export async function fetchPlayers() {
     }
 }
 
-export async function fetchLatestGameIds() {
+export async function fetchLatestGameIds(page: number = 1, pageSize: number = 5) {
     noStore();
+
+    const offset = (page - 1) * pageSize;
 
     try {
         const data = await sql<{ id: number }>`
@@ -30,7 +32,8 @@ export async function fetchLatestGameIds() {
                 id
             FROM 
                 games
-            ORDER BY date DESC, time DESC LIMIT 5
+            ORDER BY date DESC, time DESC
+            LIMIT ${pageSize} OFFSET ${offset}
         `;
 
         return data.rows.map(row => row.id);
@@ -40,12 +43,14 @@ export async function fetchLatestGameIds() {
     }
 }
 
-export async function fetchFilteredGameIds(playerId: number | null) {
+export async function fetchFilteredGameIds(playerId: number | null, page: number = 1, pageSize: number = 5) {
     noStore();
 
     if (playerId === null) {
-        return fetchLatestGameIds();
+        return fetchLatestGameIds(page, pageSize);
     }
+
+    const offset = (page - 1) * pageSize;
 
     try {
         const data = await sql<{ game_id: number }>`
@@ -55,7 +60,8 @@ export async function fetchFilteredGameIds(playerId: number | null) {
                 scores
             WHERE 
                 player_id = ${playerId}
-            ORDER BY game_id DESC LIMIT 5
+            ORDER BY game_id DESC
+            LIMIT ${pageSize} OFFSET ${offset}
         `;
         
         return data.rows.map(row => row.game_id);
