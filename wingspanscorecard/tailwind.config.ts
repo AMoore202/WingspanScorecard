@@ -62,6 +62,7 @@ const config: Config = {
 			border: {
 				DEFAULT: 'hsl(var(--border-default))',
 				table: 'hsl(var(--border-table))',
+				input: 'hsl(var(--border-input))',
 			},
   		},
   		boxShadow: {

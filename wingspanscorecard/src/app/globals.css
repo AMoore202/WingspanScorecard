@@ -36,6 +36,7 @@ body {
     --foreground-subtle: 196 10% 30%;
     --border-default: 198 10% 80%;
     --border-table: 196 10% 70%;
+    --border-table: 197 10% 50%;
 
     --radius-card: 1rem;
     --radius-button: 1rem;
