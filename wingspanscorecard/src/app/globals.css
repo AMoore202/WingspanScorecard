@@ -34,6 +34,7 @@ body {
     --foreground-label: 198 10% 40%;
     --foreground-table-text: 192 10% 10%; 
     --foreground-subtle: 196 10% 30%;
+    --foreground-disabled: 198 10% 80%;
     --border-default: 198 10% 80%;
     --border-table: 196 10% 70%;
     --border-input: 197 10% 50%;

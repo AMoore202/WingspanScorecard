@@ -58,6 +58,7 @@ const config: Config = {
 				label: 'hsl(var(--foreground-label))',
 				tableText: 'hsl(var(--foreground-table-text))',
 				subtle: 'hsl(var(--foreground-subtle))',
+				disabled: 'hsl(var(--foreground-disabled))'
 			},
 			border: {
 				DEFAULT: 'hsl(var(--border-default))',

@@ -2,9 +2,10 @@ import MenuBar from "@/components/ui/menu-bar";
 import Card from "@/components/ui/card";
 import GameCards from "@/components/ui/games/game-cards";
 import PlayersFilter from "@/components/ui/games/players-filter";
+import Pagination from "@/components/ui/games/pagination";
 import { Header1 } from "@/components/ui/typography";
 import Button from "@/components/ui/button";
-import { fetchPlayers } from "@/lib/server-fetches";
+import { fetchPlayers, fetchFilteredGameIds } from "@/lib/server-fetches";
 
 export default async function Page({
   searchParams,
@@ -12,12 +13,21 @@ export default async function Page({
   searchParams: { player?: string; page?: string };
 }) {
   const page = parseInt(searchParams.page || "1", 10);
+  const pageSize = 5;
 
   const players = await fetchPlayers();
 
   const selectedPlayerId = searchParams.player
     ? Number(searchParams.player)
     : null;
+
+  const { ids: gameIds, totalCount } = await fetchFilteredGameIds(
+    selectedPlayerId,
+    page,
+    pageSize
+  );
+  const totalPages = Math.ceil(totalCount / pageSize);
+  const hasNextPage = page < totalPages;
 
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
@@ -29,7 +39,12 @@ export default async function Page({
             <Button variant="secondary" href="/add-game" text="+ Add Game" />
           </div>
           <PlayersFilter players={players} selectedPlayer={selectedPlayerId} />
-          <GameCards selectedPlayer={selectedPlayerId} />
+          <GameCards gameIds={gameIds} />
+          <Pagination
+            currentPage={page}
+            hasNextPage={hasNextPage}
+            totalPages={totalPages}
+          />
         </Card>
       </div>
     </div>

@@ -46,7 +46,8 @@ export default function MenuBar() {
       <div className="relative" ref={popoverRef}>
         <button
           onClick={handleMenuClick}
-          className="flex items-center justify-center rounded-lg size-9 lg:size-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus/75 disabled:pointer-events-none"
+          className="flex items-center justify-center rounded-lg
+           size-9 lg:size-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus/75 disabled:pointer-events-none"
         >
           <HamburgerIcon className="" />
         </button>

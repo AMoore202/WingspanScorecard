@@ -33,7 +33,7 @@ export default function PlayersFilter({
       value={selectedPlayer || ""}
       onChange={handlePlayerChange}
       id="playerFilter"
-      className="border border-border-input rounded-lg h-8 w-60 text-foreground mx-4 my-2 focus:outline-none focus:ring-2 focus:ring-border-focus/75"
+      className="border border-border-input rounded-lg h-8 w-60 text-foreground mx-4 my-2 px-1 focus:outline-none focus:ring-2 focus:ring-border-focus/75"
     >
       <option value="">All Players</option>
       {players.map((player) => (

@@ -43,28 +43,48 @@ export async function fetchLatestGameIds(page: number = 1, pageSize: number = 5)
     }
 }
 
-export async function fetchFilteredGameIds(playerId: number | null, page: number = 1, pageSize: number = 5) {
+export async function fetchFilteredGameIds(playerId: number | null, page: number = 1, pageSize: number = 5): Promise<{ids: number[]; totalCount: number}> {
     noStore();
-
-    if (playerId === null) {
-        return fetchLatestGameIds(page, pageSize);
-    }
 
     const offset = (page - 1) * pageSize;
 
     try {
-        const data = await sql<{ game_id: number }>`
-            SELECT 
-                game_id 
-            FROM
-                scores
-            WHERE 
-                player_id = ${playerId}
-            ORDER BY game_id DESC
-            LIMIT ${pageSize} OFFSET ${offset}
-        `;
-        
-        return data.rows.map(row => row.game_id);
+        let countResult;
+        let dataResult;
+
+        if (playerId === null) {
+            countResult = await sql<{ count: number }>`
+                SELECT COUNT(*)::int FROM games
+            `;
+            dataResult = await sql<{ id: number }>`
+                SELECT id FROM games
+                ORDER BY date DESC, time DESC
+                LIMIT ${pageSize} OFFSET ${offset}
+            `;
+        } else {
+            countResult = await sql<{ count: number }>`
+                SELECT COUNT(DISTINCT game_id) AS count
+                FROM scores
+                WHERE player_id = ${playerId}
+            `;
+            dataResult = await sql<{ game_id: number }>`
+                SELECT 
+                    game_id 
+                FROM 
+                    scores
+                WHERE 
+                    player_id = ${playerId}
+                ORDER BY game_id DESC
+                LIMIT ${pageSize} OFFSET ${offset}
+            `;
+        }
+
+        return {
+            ids: playerId === null
+                ? (dataResult.rows as { id: number }[]).map(row => row.id)
+                : (dataResult.rows as { game_id: number }[]).map(row => row.game_id),
+            totalCount: countResult.rows[0].count
+        };
     } catch (err) {
         console.error('Database Error:', err);
         throw new Error('Failed to select game ids');
