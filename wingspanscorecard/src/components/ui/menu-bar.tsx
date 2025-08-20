@@ -52,7 +52,7 @@ export default function MenuBar() {
           <HamburgerIcon className="" />
         </button>
         <div
-          className={`absolute right-0 top-full p-2 w-[120px] rounded-lg bg-surface-card shadow-card transition-all duration-150 ease-in-out z-10 ${
+          className={`absolute right-0 top-full p-2 w-[120px] rounded-lg bg-surface-popover shadow-card transition-all duration-150 ease-in-out z-10 ${
             showPopover
               ? "opacity-100 scale-100 pointer-events-auto"
               : "opacity-0 scale-96 pointer-events-none -translate-y-1"

@@ -17,9 +17,7 @@ export default async function Page({
 
   const players = await fetchPlayers();
 
-  const selectedPlayerId = searchParams.player
-    ? Number(searchParams.player)
-    : null;
+  const selectedPlayerId = Number(searchParams.player);
 
   const { ids: gameIds, totalCount } = await fetchFilteredGameIds(
     selectedPlayerId,

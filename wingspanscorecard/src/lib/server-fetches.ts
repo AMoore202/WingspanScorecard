@@ -43,16 +43,18 @@ export async function fetchLatestGameIds(page: number = 1, pageSize: number = 5)
     }
 }
 
-export async function fetchFilteredGameIds(playerId: number | null, page: number = 1, pageSize: number = 5): Promise<{ids: number[]; totalCount: number}> {
+export async function fetchFilteredGameIds(playerId: number, page: number = 1, pageSize: number = 5): Promise<{ids: number[]; totalCount: number}> {
     noStore();
 
     const offset = (page - 1) * pageSize;
+
+    console.log(`Fetching games for playerId: ${playerId}, page: ${page}, pageSize: ${pageSize}`);
 
     try {
         let countResult;
         let dataResult;
 
-        if (playerId === null) {
+        if (playerId === 0) {
             countResult = await sql<{ count: number }>`
                 SELECT COUNT(*)::int FROM games
             `;
@@ -80,7 +82,7 @@ export async function fetchFilteredGameIds(playerId: number | null, page: number
         }
 
         return {
-            ids: playerId === null
+            ids: playerId === 0
                 ? (dataResult.rows as { id: number }[]).map(row => row.id)
                 : (dataResult.rows as { game_id: number }[]).map(row => row.game_id),
             totalCount: countResult.rows[0].count

@@ -20,6 +20,7 @@ body {
   :root {
     --surface-default: 192 10% 90%;
     --surface-card: 0 0% 100%;
+    --surface-popover: 0 0% 100%;
     --surface-button-primary-start: 197 75% 38%;
     --surface-button-primary-end: 197 75% 28%;
     --surface-button-secondary-start: 199 76% 95%;

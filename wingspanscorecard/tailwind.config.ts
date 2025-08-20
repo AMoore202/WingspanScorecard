@@ -42,6 +42,7 @@ const config: Config = {
   			surface: {
 				DEFAULT: 'hsl(var(--surface-default))',
 				card: 'hsl(var(--surface-card))',
+				popover: 'hsl(var(--surface-popover))',
 				buttonPrimaryStart: 'hsl(var(--surface-button-primary-start))',
 				buttonPrimaryEnd: 'hsl(var(--surface-button-primary-end))',
 				buttonSecondaryStart: 'hsl(var(--surface-button-secondary-start))',
