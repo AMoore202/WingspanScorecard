@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/icons";
 import Link from "next/link";
 
+// Todo: User shouldn't be able navigate from their keyboard to the menu links
+
 export default function MenuBar() {
   const [showPopover, setShowPopover] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);

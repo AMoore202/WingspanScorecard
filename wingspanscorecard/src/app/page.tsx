@@ -1,5 +1,6 @@
 import React from "react";
 import { Suspense } from "react";
+import Link from "next/link";
 import MenuBar from "@/components/ui/menu-bar";
 import GameCard from "@/components/ui/recent-games/game-card";
 import Card from "@/components/ui/card";
@@ -7,6 +8,7 @@ import { Header1 } from "@/components/ui/typography";
 import Button from "@/components/ui/button";
 import { GameCardSkeleton } from "@/components/ui/skeletons";
 import { fetchLatestGameIds } from "@/lib/server-fetches";
+import { LinkIcon } from "@/components/ui/icons";
 
 export default async function Page() {
   const gameIds = await fetchLatestGameIds();
@@ -17,7 +19,13 @@ export default async function Page() {
       <div className="flex flex-col w-full gap-4 p-3 max-w-[1355px]">
         <Card>
           <div className="flex w-full justify-between items-center p-4">
-            <Header1 text="Games" />
+            <Link
+              href="/games?page=1&player=0"
+              className="flex items-center gap-2 lg:gap-3 focus-visible:outline-none focus-visible:underline hover:underline"
+            >
+              <Header1 text="Games" />
+              <LinkIcon className="size-4 lg:size-6" />
+            </Link>
             <Button variant="secondary" href="/add-game" text="+ Add Game" />
           </div>
           <div className="w-full overflow-x-scroll hide-scrollbar">
