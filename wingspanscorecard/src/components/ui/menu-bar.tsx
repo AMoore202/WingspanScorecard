@@ -2,7 +2,12 @@
 
 import { useState, useRef, useEffect, use } from "react";
 import { MenuTitle } from "@/components/ui/typography";
-import { LogoIcon, HamburgerIcon, HomeIcon } from "@/components/ui/icons";
+import {
+  LogoIcon,
+  HamburgerIcon,
+  HomeIcon,
+  GamesIcon,
+} from "@/components/ui/icons";
 import Link from "next/link";
 
 export default function MenuBar() {
@@ -62,6 +67,15 @@ export default function MenuBar() {
             <HomeIcon />
             <p className="font-semibold text-base text-foreground-subtle">
               Home
+            </p>
+          </Link>
+          <Link
+            href="games?page=1&player=0"
+            className="px-[6px] py-2 flex items-center gap-[6px]"
+          >
+            <GamesIcon />
+            <p className="font-semibold text-base text-foreground-subtle">
+              Games
             </p>
           </Link>
         </div>
