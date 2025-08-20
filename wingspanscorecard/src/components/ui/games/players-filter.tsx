@@ -40,7 +40,7 @@ export default function PlayersFilter({
       value={selectedPlayer ? String(selectedPlayer) : ""}
       name="playerFilter"
     >
-      <SelectTrigger className="w-full mx-4 my-2">
+      <SelectTrigger className="w-40 mx-4 my-2">
         <SelectValue placeholder="All Players" />
       </SelectTrigger>
       <SelectContent>
