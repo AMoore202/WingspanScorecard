@@ -35,19 +35,6 @@ export default function PlayersFilter({
   };
 
   return (
-    // <select
-    //   value={selectedPlayer || ""}
-    //   onChange={handlePlayerChange}
-    //   id="playerFilter"
-    //   className="border border-border-input rounded-lg h-8 w-60 text-foreground mx-4 my-2 px-1 focus:outline-none focus:ring-2 focus:ring-border-focus/75"
-    // >
-    //   <option value="">All Players</option>
-    //   {players.map((player) => (
-    //     <option key={player.id} value={player.id}>
-    //       {player.name}
-    //     </option>
-    //   ))}
-    // </select>
     <Select
       onValueChange={handlePlayerChange}
       value={selectedPlayer ? String(selectedPlayer) : ""}

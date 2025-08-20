@@ -1,3 +1,5 @@
+// Go to http://localhost:3000/games?page=1&player=0
+
 import MenuBar from "@/components/ui/menu-bar";
 import Card from "@/components/ui/card";
 import GameCards from "@/components/ui/games/game-cards";

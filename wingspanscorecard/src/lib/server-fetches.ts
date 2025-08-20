@@ -48,8 +48,6 @@ export async function fetchFilteredGameIds(playerId: number, page: number = 1, p
 
     const offset = (page - 1) * pageSize;
 
-    console.log(`Fetching games for playerId: ${playerId}, page: ${page}, pageSize: ${pageSize}`);
-
     try {
         let countResult;
         let dataResult;
