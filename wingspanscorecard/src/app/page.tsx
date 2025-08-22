@@ -30,7 +30,7 @@ export default async function Page() {
             <Button variant="secondary" href="/add-game" text="+ Add Game" />
           </div>
           <div className="w-full overflow-x-scroll hide-scrollbar">
-            <div className="flex items-start gap-2 lg:gap-3 pl-4 lg:pl-6 pb-8">
+            <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-1 lg:pl-6 pb-8">
               {gameIds.map((id) => (
                 <Suspense key={id} fallback={<GameCardSkeleton />}>
                   <GameCard key={id} id={id} />
@@ -45,7 +45,7 @@ export default async function Page() {
             <Header1 text="Leaderboard" />
           </div>
           <div className="w-full overflow-x-scroll hide-scrollbar">
-            <div className="flex items-start gap-2 lg:gap-3 pl-4 lg:pl-6 pb-8">
+            <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-1 lg:pl-6 pb-8">
               <LeaderCard category="total" />
               <LeaderCard category="birdpoints" />
               <LeaderCard category="bonuscards" />
