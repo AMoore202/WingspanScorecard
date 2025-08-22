@@ -72,7 +72,7 @@ export default function MenuBar() {
             </p>
           </Link>
           <Link
-            href="games?page=1&player=0"
+            href="/games?page=1&player=0"
             className="px-[6px] py-2 flex items-center gap-[6px]"
           >
             <GamesIcon />

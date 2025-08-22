@@ -62,8 +62,8 @@ export default async function GameCard({
       {showGameInfo && game && (
         <div className="flex justify-end gap-2 items-center">
           <div className="flex items-center gap-[3px] lg:gap-[5px]">
-            <CalendarIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
-            <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
+            <CalendarIcon className="text-foreground-buttonPrimarySubtleBlue w-[10px] h-auto lg:w-3" />
+            <div className="text-foreground-buttonPrimarySubtleBlue text-[10px] lg:text-xs">
               {game.date.toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
@@ -71,8 +71,8 @@ export default async function GameCard({
             </div>
           </div>
           <div className="flex items-center gap-[1px] lg:gap-[3px]">
-            <HashtagIcon className="text-foreground-buttonPrimarySubtle w-[10px] h-auto lg:w-3" />
-            <div className="text-foreground-buttonPrimarySubtle text-[10px] lg:text-xs">
+            <HashtagIcon className="text-foreground-buttonPrimarySubtleBlue w-[10px] h-auto lg:w-3" />
+            <div className="text-foreground-buttonPrimarySubtleBlue text-[10px] lg:text-xs">
               Game {game.game_number}
             </div>
           </div>
@@ -81,7 +81,7 @@ export default async function GameCard({
     </>
   );
 
-  const wrapperClasses = `flex flex-col gap-2 w-[200px] lg:w-[250px] min-w-[200px] lg:min-w-[250px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStartBlue,#187FA9)_0%,var(--surface-buttonPrimaryEndBlue,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus/75 ${className}`;
+  const wrapperClasses = `flex flex-col gap-2 w-[200px] lg:w-[247px] min-w-[200px] lg:min-w-[247px] bg-[linear-gradient(180deg,var(--surface-buttonPrimaryStartBlue,#187FA9)_0%,var(--surface-buttonPrimaryEndBlue,#125E7D)_100%)] rounded-2xl p-3 lg:p-4 shadow-buttonCard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus/75 ${className}`;
 
   if (isLink && game) {
     return (
