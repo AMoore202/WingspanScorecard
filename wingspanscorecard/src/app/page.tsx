@@ -46,11 +46,14 @@ export default async function Page() {
           </div>
           <div className="w-full overflow-x-scroll hide-scrollbar">
             <div className="flex items-start gap-2 lg:gap-3 pl-4 lg:pl-6 pb-8">
-              <LeaderCard />
-              <LeaderCard />
-              <LeaderCard />
-              <LeaderCard />
-              <LeaderCard />
+              <LeaderCard category="total" />
+              <LeaderCard category="birdpoints" />
+              <LeaderCard category="bonuscards" />
+              <LeaderCard category="eorgoals" />
+              <LeaderCard category="eggs" />
+              <LeaderCard category="foodoncard" />
+              <LeaderCard category="tuckedcards" />
+              <LeaderCard category="nectar" />
               <div className="size-2 pr-2" aria-hidden="true" />
             </div>
           </div>
