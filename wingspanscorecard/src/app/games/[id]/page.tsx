@@ -18,8 +18,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
       <MenuBar />
-      <div className="w-full p-3">
-        <Card className="w-full gap-2">
+      <div className="w-full max-w-[50rem] p-3">
+        <Card className="w-full gap-2 lg:p-4">
           <div className="flex w-full items-center px-4 pt-4">
             <Header1 text="Game Details" />
           </div>
