@@ -21,8 +21,8 @@ body {
     --surface-default: 192 10% 90%;
     --surface-card: 0 0% 100%;
     --surface-popover: 0 0% 100%;
-    --surface-button-primary-start: 197 75% 38%;
-    --surface-button-primary-end: 197 75% 28%;
+    --surface-button-primary-start-blue: 197 75% 38%;
+    --surface-button-primary-end-blue: 197 75% 28%;
     --surface-button-secondary-start: 199 76% 95%;
     --surface-secondary-end: 198 75% 78%;
     --surface-well: 192 10% 90%;
