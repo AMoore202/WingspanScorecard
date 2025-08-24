@@ -1,35 +1,64 @@
 import React from "react";
+import { Suspense } from "react";
+import Link from "next/link";
 import MenuBar from "@/components/ui/menu-bar";
 import GameCard from "@/components/ui/recent-games/game-card";
-import { AddGameButton } from "@/components/ui/recent-games/buttons";
-import { fetchGameData, fetchScores } from "@/lib/server-fetches";
+import LeaderCard from "@/components/ui/leader-card";
+import Card from "@/components/ui/card";
+import { Header1 } from "@/components/ui/typography";
+import Button from "@/components/ui/button";
+import { GameCardSkeleton } from "@/components/ui/skeletons";
+import { fetchLatestGameIds } from "@/lib/server-fetches";
+import { LinkIcon } from "@/components/ui/icons";
 
 export default async function Page() {
-  const numGames = Array.from({ length: 5 }, (_, index) => index);
-  const gameData = await fetchGameData();
-  const scores = await Promise.all(
-    gameData.map((game) => fetchScores(game.id))
-  );
+  const gameIds = await fetchLatestGameIds();
 
   return (
-    <>
+    <div className="flex flex-col items-center w-full h-full bg-background">
       <MenuBar />
-      <div className="flex flex-col w-full max-w-7xl p-7 m-auto">
-        <div className="flex w-full justify-between mb-1">
-          <h1 className="text-seagull-800 text-3xl font-semibold">
-            Recent Games
-          </h1>
-          <AddGameButton />
-        </div>
-        {numGames.map((game) => (
-          <GameCard
-            key={game}
-            winnerScore={scores[game][0]}
-            scores={scores[game].slice(1, 5)}
-            gameData={gameData[game]}
-          />
-        ))}
+      <div className="flex flex-col w-full gap-4 p-3 max-w-[1355px]">
+        <Card>
+          <div className="flex w-full justify-between items-center p-4 lg:p-6">
+            <Link
+              href="/games?page=1&player=0"
+              className="flex items-center gap-2 lg:gap-3 focus-visible:outline-none focus-visible:underline hover:underline"
+            >
+              <Header1 text="Games" />
+              <LinkIcon className="size-4 lg:size-6" />
+            </Link>
+            <Button variant="secondary" href="/add-game" text="+ Add Game" />
+          </div>
+          <div className="w-full overflow-x-scroll hide-scrollbar">
+            <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-1 lg:pl-6 pb-8">
+              {gameIds.map((id) => (
+                <Suspense key={id} fallback={<GameCardSkeleton />}>
+                  <GameCard key={id} id={id} />
+                </Suspense>
+              ))}
+              <div className="size-2 pr-2" aria-hidden="true" />
+            </div>
+          </div>
+        </Card>
+        <Card>
+          <div className="flex w-full items-start p-4 lg:p-6">
+            <Header1 text="Leaderboard" />
+          </div>
+          <div className="w-full overflow-x-scroll hide-scrollbar">
+            <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-1 lg:pl-6 pb-8">
+              <LeaderCard category="total" />
+              <LeaderCard category="bird_points" />
+              <LeaderCard category="bonus_cards" />
+              <LeaderCard category="end_of_round_goals" />
+              <LeaderCard category="eggs" />
+              <LeaderCard category="food_on_cards" />
+              <LeaderCard category="tucked_cards" />
+              <LeaderCard category="nectar" />
+              <div className="size-2 pr-2" aria-hidden="true" />
+            </div>
+          </div>
+        </Card>
       </div>
-    </>
+    </div>
   );
 }

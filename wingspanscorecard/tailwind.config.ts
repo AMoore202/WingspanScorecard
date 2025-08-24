@@ -1,3 +1,4 @@
+import { table } from "console";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -11,67 +12,94 @@ const config: Config = {
   	extend: {
   		colors: {
   			seagull: {
-  				'50': '#f1f9fe',
-  				'100': '#e2f3fc',
-  				'200': '#bfe5f8',
-  				'300': '#75cbf0',
-  				'400': '#47bbe9',
-  				'500': '#1fa2d8',
-  				'600': '#1283b7',
-  				'700': '#0f6895',
-  				'800': '#11587b',
-  				'900': '#144a66',
-  				'950': '#0d2f44'
+  				'50': '#E9F6FC',
+  				'100': '#CEECF8',
+  				'200': '#9DD8F1',
+  				'300': '#70C7EB',
+  				'400': '#44B5E4',
+  				'500': '#1FA2D8',
+  				'600': '#187FA9',
+  				'700': '#125E7D',
+  				'800': '#0C3C50',
+  				'900': '#061E28',
+  				'950': '#031116'
   			},
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
+			sirocco: {
+  				'0': '#FFFFFF',
+				'50': '#F1F3F4',
+  				'100': '#E3E7E8',
+  				'200': '#C7CED1',
+  				'300': '#ABB6BA',
+  				'400': '#8F9DA3',
+  				'500': '#73858C',
+  				'600': '#5C6A70',
+  				'700': '#455054',
+  				'800': '#2E3538',
+  				'900': '#171B1C',
+  				'950': '#0B0D0E',
+				'1000': '#000000',
   			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
+			tahitiGold: {
+				'50': '#FEF3E6',
+				'100': '#FDE2C3',
+				'200': '#FCC688',
+				'300': '#FBAB51',
+				'400': '#F9941F',
+				'500': '#E07A06',
+				'600': '#AE5F04',
+				'700': '#7C4403',
+				'800': '#462602',
+				'900': '#281601',
+				'950': '#190E01',
+			},
+  			surface: {
+				DEFAULT: 'hsl(var(--surface-default))',
+				card: 'hsl(var(--surface-card))',
+				popover: 'hsl(var(--surface-popover))',
+				buttonPrimaryStartBlue: 'hsl(var(--surface-button-primary-start-blue))',
+				buttonPrimaryStartOrange: 'hsl(var(--surface-button-primary-start-orange))',
+				buttonPrimaryEndBlue: 'hsl(var(--surface-button-primary-end-blue))',
+				buttonPrimaryEndOrange: 'hsl(var(--surface-button-primary-end-orange))',
+				buttonSecondaryStart: 'hsl(var(--surface-button-secondary-start))',
+				buttonSecondaryEnd: 'hsl(var(--surface-button-secondary-end))',
+				well: 'hsl(var(--surface-well))',
+				skeleton: 'hsl(var(--surface-skeleton))',
+			},
+			foreground: {
+				DEFAULT: 'hsl(var(--foreground-default))',
+				accent: 'hsl(var(--foreground-accent))',
+				buttonPrimary: 'hsl(var(--foreground-button-primary))',
+				buttonPrimarySubtleBlue: 'hsl(var(--foreground-button-primary-subtle-blue))',
+				buttonPrimarySubtleOrange: 'hsl(var(--foreground-button-primary-subtle-orange))',
+				buttonSecondary: 'hsl(var(--foreground-button-secondary))',
+				label: 'hsl(var(--foreground-label))',
+				tableText: 'hsl(var(--foreground-table-text))',
+				subtle: 'hsl(var(--foreground-subtle))',
+				disabled: 'hsl(var(--foreground-disabled))'
+			},
+			border: {
+				DEFAULT: 'hsl(var(--border-default))',
+				table: 'hsl(var(--border-table))',
+				input: 'hsl(var(--border-input))',
+				focus: 'hsl(var(--border-focus))',
+			},
   		},
   		boxShadow: {
-  			menu: '0 4px 4px 0px rgba(13,47, 68, 0.25)'
+  			card: 'var(--shadow-card)',
+			buttonCard: 'var(--shadow-button-card)',
+			buttonSecondary: 'var(--shadow-button-secondary)',
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
+  			card: 'var(--radius-card)',
+			button: 'var(--radius-button)',
+  		},
+		keyframes: {
+      		shimmer: {
+        		'100%': {
+          		transform: 'translateX(100%)',
+        		},
+      		},
+    	},
   	}
   },
   plugins: [require("tailwindcss-animate")],
