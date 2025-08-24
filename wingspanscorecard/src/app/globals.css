@@ -42,7 +42,8 @@ body {
     --border-default: 198 10% 80%;
     --border-table: 196 10% 70%;
     --border-input: 197 10% 50%;
-    --border-focus: 197 75% 38%;
+    --border-focus-blue: 197 75% 38%;
+    --border-focus-orange: 32 95% 45%;
 
     --radius-card: 1rem;
     --radius-button: 1rem;
