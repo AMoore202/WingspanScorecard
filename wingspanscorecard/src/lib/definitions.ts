@@ -56,4 +56,10 @@ export type ScoreRowProps = {
     category: string;
     numPlayers: number;
     handleNumChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  }
+}
+
+export type LeaderboardEntry = {
+    player: string;
+    value: number;
+    game_id: number;
+}

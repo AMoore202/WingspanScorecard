@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Player, Game, PlayerScore, ScoreClean } from '@/lib/definitions';
+import { Player, Game, PlayerScore, ScoreClean, LeaderboardEntry } from '@/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchPlayers() {
@@ -169,5 +169,69 @@ export async function fetchRawScoresById(id: number) {
     } catch (err) {
         console.error('Database Error:', err);
         throw new Error('Failed to fetch raw scores');
+    }
+}
+
+export async function fetchHighestTotal() {
+    noStore();
+    try {
+        const data = await sql<LeaderboardEntry>`
+        SELECT
+            scores.game_id,
+            players.name as player,
+            COALESCE(scores.bird_points,0) + 
+            COALESCE(scores.bonus_cards,0) + 
+            COALESCE(scores.end_of_round_goals,0) + 
+            COALESCE(scores.eggs,0) + 
+            COALESCE(scores.food_on_cards,0) + 
+            COALESCE(scores.tucked_cards,0) + 
+            COALESCE(scores.nectar,0) AS value
+        FROM scores
+        JOIN players ON scores.player_id = players.id
+        ORDER BY value DESC
+        LIMIT 1
+        `;
+        return data.rows[0] ?? null;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch highest total');
+    }
+}
+
+export async function fetchHighestCategory(category: string) {
+    noStore();
+
+    // Only allow specific, known-safe columns to prevent SQL injection
+    const allowedCategories = [
+        'bird_points',
+        'bonus_cards',
+        'end_of_round_goals',
+        'eggs',
+        'food_on_cards',
+        'tucked_cards',
+        'nectar'
+    ];
+
+    if (!allowedCategories.includes(category)) {
+        throw new Error('Invalid category');
+    }
+
+    try {
+        const query = `
+            SELECT
+                scores.game_id,
+                players.name as player,
+                scores.${category} as value
+            FROM scores
+            JOIN players ON scores.player_id = players.id
+            ORDER BY value DESC
+            LIMIT 1
+        `;
+
+        const data = await sql.query<LeaderboardEntry>(query);
+        return data.rows[0] ?? null;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch highest category');
     }
 }
