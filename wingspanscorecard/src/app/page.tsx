@@ -46,14 +46,30 @@ export default async function Page() {
           </div>
           <div className="w-full overflow-x-scroll hide-scrollbar">
             <div className="flex items-start gap-2 lg:gap-3 pl-4 pt-1 lg:pl-6 pb-8">
-              <LeaderCard category="total" />
-              <LeaderCard category="bird_points" />
-              <LeaderCard category="bonus_cards" />
-              <LeaderCard category="end_of_round_goals" />
-              <LeaderCard category="eggs" />
-              <LeaderCard category="food_on_cards" />
-              <LeaderCard category="tucked_cards" />
-              <LeaderCard category="nectar" />
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="total" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="bird_points" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="bonus_cards" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="end_of_round_goals" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="eggs" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="food_on_cards" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="tucked_cards" />
+              </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="nectar" />
+              </Suspense>
               <div className="size-2 pr-2" aria-hidden="true" />
             </div>
           </div>
