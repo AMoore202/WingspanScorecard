@@ -75,7 +75,7 @@ export default function MenuBar() {
             href="/games?page=1&player=0"
             className="px-[6px] py-2 flex items-center gap-[6px]"
           >
-            <GamesIcon />
+            <GamesIcon className="text-foreground-subtle" />
             <p className="font-semibold text-base text-foreground-subtle">
               Games
             </p>
