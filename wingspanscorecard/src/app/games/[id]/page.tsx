@@ -5,6 +5,7 @@ import Card from "@/components/ui/card";
 import { Header1, Header2 } from "@/components/ui/typography";
 import GameTable from "@/components/ui/game-table";
 import GameInfo from "@/components/ui/game-info";
+import { fetchGameDataById, fetchRawScoresById } from "@/lib/server-fetches";
 import {
   TableSkeleton,
   GameInfoSkeleton,
@@ -14,6 +15,8 @@ import {
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
+  const gameData = await fetchGameDataById(Number(id));
+  const scores = await fetchRawScoresById(Number(id));
 
   return (
     <div className="flex flex-col items-center w-full h-full bg-background">
@@ -37,7 +40,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           <div className="flex flex-col w-full items-center px-4 lg:px-6 gap-2">
             <Header2 text="Game Info" />
             <Suspense fallback={<GameInfoSkeleton />}>
-              <GameInfo id={Number(id)} />
+              <GameInfo gameData={gameData} />
             </Suspense>
           </div>
           <div className="flex flex-col w-full gap-2">
@@ -47,7 +50,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <div className="w-full overflow-x-scroll hide-scrollbar">
               <div className="flex items-start px-4 lg:px-6 pt-2 pb-4 lg:pb-6 w-max">
                 <Suspense fallback={<TableSkeleton />}>
-                  <GameTable id={Number(id)} />
+                  <GameTable scores={scores} />
                 </Suspense>
                 <div className="size-2 pr-2" aria-hidden="true" />
               </div>

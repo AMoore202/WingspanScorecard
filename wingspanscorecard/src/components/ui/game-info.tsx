@@ -1,10 +1,8 @@
 import { Text, LabelText } from "@/components/ui/typography";
 import ExpansionPill from "./expansion-pill";
-import { fetchGameDataById } from "@/lib/server-fetches";
+import { Game } from "@/lib/definitions";
 
-export default async function GameInfo({ id }: { id: number }) {
-  const gameData = await fetchGameDataById(id);
-
+export default async function GameInfo({ gameData }: { gameData: Game }) {
   const expansionsContent =
     !gameData.european_expansion &&
     !gameData.oceania_expansion &&
