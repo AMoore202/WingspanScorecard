@@ -9,6 +9,7 @@ import {
   FoodOnCardsIcon,
   GamesIcon,
   NectarIcon,
+  HummingbirdIcon,
 } from "./icons";
 
 interface LeaderCardProps {
@@ -20,7 +21,8 @@ interface LeaderCardProps {
     | "eggs"
     | "food_on_cards"
     | "tucked_cards"
-    | "nectar";
+    | "nectar"
+    | "hummingbird_track";
 }
 
 export default async function LeaderCard({ category }: LeaderCardProps) {
@@ -38,9 +40,10 @@ export default async function LeaderCard({ category }: LeaderCardProps) {
     food_on_cards: "Most Food on Cards",
     tucked_cards: "Most Tucked Cards",
     nectar: "Highest Nectar",
+    hummingbird_track: "Highest Hummingbird Track",
   };
 
-  const iconStyles = "absolute text-white opacity-[.03] size-[200px]";
+  const iconStyles = "absolute text-white opacity-[.05] size-[200px]";
 
   const icon = {
     total: <LogoIcon className={`${iconStyles} left-[40px] top-[20px]`} />,
@@ -59,6 +62,9 @@ export default async function LeaderCard({ category }: LeaderCardProps) {
     ),
     tucked_cards: <GamesIcon className={`${iconStyles} left-[20px] top-0`} />,
     nectar: <NectarIcon className={`${iconStyles} left-[30px] -top-5`} />,
+    hummingbird_track: (
+      <HummingbirdIcon className={`${iconStyles} left-[30px] top-0`} />
+    ),
   };
 
   return (

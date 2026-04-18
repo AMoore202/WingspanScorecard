@@ -1,10 +1,11 @@
 import clsx from "clsx";
-import { fetchRawScoresById } from "@/lib/server-fetches";
+import { safeParseInt } from "@/lib/utils";
+import { ScoreClean } from "@/lib/definitions";
 
 function sumArray(array: number[]) {
   return array.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
-    0
+    0,
   );
 }
 
@@ -51,7 +52,7 @@ function RowLabel({
         `flex items-center h-10 w-[168px] pl-4 pr-8 text-xs font-semibold text-foreground border-b border-border-table ${className}`,
         {
           "bg-surface-well": header,
-        }
+        },
       )}
     >
       {text}
@@ -59,9 +60,15 @@ function RowLabel({
   );
 }
 
-export default async function GameTable({ id }: { id: number }) {
-  const scores = await fetchRawScoresById(id);
-
+export default async function GameTable({
+  scores,
+  oceaniaExpansion = false,
+  americasExpansion = false,
+}: {
+  scores: ScoreClean[];
+  oceaniaExpansion?: boolean;
+  americasExpansion?: boolean;
+}) {
   return (
     <div className="flex border border-border-table rounded-lg bg-surface-card overflow-hidden w-max">
       <TableCol>
@@ -72,7 +79,8 @@ export default async function GameTable({ id }: { id: number }) {
         <RowLabel text="Eggs" />
         <RowLabel text="Food on Cards" />
         <RowLabel text="Tucked Cards" />
-        <RowLabel text="Nectar" />
+        {oceaniaExpansion && <RowLabel text="Nectar" />}
+        {americasExpansion && <RowLabel text="Hummingbird Track" />}
         <RowLabel header={true} text="Total" className="border-none" />
       </TableCol>
       {scores.map((player) => (
@@ -85,12 +93,17 @@ export default async function GameTable({ id }: { id: number }) {
             <TableCell text={player.eggs.toString()} />
             <TableCell text={player.food_on_cards.toString()} />
             <TableCell text={player.tucked_cards.toString()} />
-            <TableCell text={player.nectar.toString()} />
+            {oceaniaExpansion && <TableCell text={player.nectar.toString()} />}
+            {americasExpansion && (
+              <TableCell
+                text={safeParseInt(player.hummingbird_track).toString()}
+              />
+            )}
             <HeaderFooterCell
               text={sumArray(
                 Object.values(player).filter(
-                  (v): v is number => typeof v === "number"
-                )
+                  (v): v is number => typeof v === "number",
+                ),
               ).toString()}
               className="border-none"
             />

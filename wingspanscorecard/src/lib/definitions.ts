@@ -42,6 +42,7 @@ export type ScoreClean = {
   food_on_cards: number;
   tucked_cards: number;
   nectar: number;
+  hummingbird_track: number;
 };
 
 export type ScoredGame = {

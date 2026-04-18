@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 interface ExpansionPillProps {
-  expansion: "europe" | "oceania" | "asia";
+  expansion: "europe" | "oceania" | "asia" | "americas";
 }
 
 export default function ExpansionPill({ expansion }: ExpansionPillProps) {
@@ -9,8 +9,12 @@ export default function ExpansionPill({ expansion }: ExpansionPillProps) {
     expansion === "europe"
       ? "Europe"
       : expansion === "oceania"
-      ? "Oceania"
-      : "Asia";
+        ? "Oceania"
+        : expansion === "asia"
+          ? "Asia"
+          : expansion === "americas"
+            ? "Americas"
+            : null;
 
   return (
     <div
@@ -23,7 +27,9 @@ export default function ExpansionPill({ expansion }: ExpansionPillProps) {
             expansion === "oceania",
           "bg-[linear-gradient(180deg,#EEAADA_0%,#E580C7_100%)]":
             expansion === "asia",
-        }
+          "bg-[linear-gradient(180deg,#C3EEAA_0%,#A5E580_100%)]":
+            expansion === "americas",
+        },
       )}
     >
       {text}

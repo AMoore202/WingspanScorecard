@@ -70,6 +70,9 @@ export default async function Page() {
               <Suspense fallback={<GameCardSkeleton />}>
                 <LeaderCard category="nectar" />
               </Suspense>
+              <Suspense fallback={<GameCardSkeleton />}>
+                <LeaderCard category="hummingbird_track" />
+              </Suspense>
               <div className="size-2 pr-2" aria-hidden="true" />
             </div>
           </div>

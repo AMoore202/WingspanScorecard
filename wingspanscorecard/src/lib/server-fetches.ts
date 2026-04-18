@@ -1,11 +1,17 @@
-import { sql } from '@vercel/postgres';
-import { Player, Game, PlayerScore, ScoreClean, LeaderboardEntry } from '@/lib/definitions';
-import { unstable_noStore as noStore } from 'next/cache';
+import { sql } from "@vercel/postgres";
+import {
+  Player,
+  Game,
+  PlayerScore,
+  ScoreClean,
+  LeaderboardEntry,
+} from "@/lib/definitions";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchPlayers() {
-    noStore();
-    try {
-        const data = await sql<Player>`
+  noStore();
+  try {
+    const data = await sql<Player>`
         SELECT
             id,
             name
@@ -13,21 +19,24 @@ export async function fetchPlayers() {
         ORDER BY name DESC
         `;
 
-        const players = data.rows;
-        return players;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to select all players');
-    }
+    const players = data.rows;
+    return players;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to select all players");
+  }
 }
 
-export async function fetchLatestGameIds(page: number = 1, pageSize: number = 5) {
-    noStore();
+export async function fetchLatestGameIds(
+  page: number = 1,
+  pageSize: number = 5,
+) {
+  noStore();
 
-    const offset = (page - 1) * pageSize;
+  const offset = (page - 1) * pageSize;
 
-    try {
-        const data = await sql<{ id: number }>`
+  try {
+    const data = await sql<{ id: number }>`
             SELECT 
                 id
             FROM 
@@ -36,38 +45,42 @@ export async function fetchLatestGameIds(page: number = 1, pageSize: number = 5)
             LIMIT ${pageSize} OFFSET ${offset}
         `;
 
-        return data.rows.map(row => row.id);
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to select game ids');
-    }
+    return data.rows.map((row) => row.id);
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to select game ids");
+  }
 }
 
-export async function fetchFilteredGameIds(playerId: number, page: number = 1, pageSize: number = 5): Promise<{ids: number[]; totalCount: number}> {
-    noStore();
+export async function fetchFilteredGameIds(
+  playerId: number,
+  page: number = 1,
+  pageSize: number = 5,
+): Promise<{ ids: number[]; totalCount: number }> {
+  noStore();
 
-    const offset = (page - 1) * pageSize;
+  const offset = (page - 1) * pageSize;
 
-    try {
-        let countResult;
-        let dataResult;
+  try {
+    let countResult;
+    let dataResult;
 
-        if (playerId === 0) {
-            countResult = await sql<{ count: number }>`
+    if (playerId === 0) {
+      countResult = await sql<{ count: number }>`
                 SELECT COUNT(*)::int FROM games
             `;
-            dataResult = await sql<{ id: number }>`
+      dataResult = await sql<{ id: number }>`
                 SELECT id FROM games
                 ORDER BY date DESC, time DESC
                 LIMIT ${pageSize} OFFSET ${offset}
             `;
-        } else {
-            countResult = await sql<{ count: number }>`
+    } else {
+      countResult = await sql<{ count: number }>`
                 SELECT COUNT(DISTINCT game_id) AS count
                 FROM scores
                 WHERE player_id = ${playerId}
             `;
-            dataResult = await sql<{ game_id: number }>`
+      dataResult = await sql<{ game_id: number }>`
                 SELECT 
                     game_id 
                 FROM 
@@ -77,24 +90,27 @@ export async function fetchFilteredGameIds(playerId: number, page: number = 1, p
                 ORDER BY game_id DESC
                 LIMIT ${pageSize} OFFSET ${offset}
             `;
-        }
-
-        return {
-            ids: playerId === 0
-                ? (dataResult.rows as { id: number }[]).map(row => row.id)
-                : (dataResult.rows as { game_id: number }[]).map(row => row.game_id),
-            totalCount: countResult.rows[0].count
-        };
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to select game ids');
     }
+
+    return {
+      ids:
+        playerId === 0
+          ? (dataResult.rows as { id: number }[]).map((row) => row.id)
+          : (dataResult.rows as { game_id: number }[]).map(
+              (row) => row.game_id,
+            ),
+      totalCount: countResult.rows[0].count,
+    };
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to select game ids");
+  }
 }
 
 export async function fetchGameDataById(id: number) {
-    noStore();
-    try {
-        const data = await sql<Game>`
+  noStore();
+  try {
+    const data = await sql<Game>`
         WITH OrderedGames AS (
             SELECT 
                 id, 
@@ -103,26 +119,27 @@ export async function fetchGameDataById(id: number) {
                 european_expansion,
                 oceania_expansion,
                 asian_expansion,
+                americas_expansion,
                 ROW_NUMBER() OVER(PARTITION BY date ORDER BY time) AS game_number
             FROM 
                 games
         )
-        SELECT id, date, time, game_number, european_expansion, oceania_expansion, asian_expansion FROM OrderedGames
+        SELECT id, date, time, game_number, european_expansion, oceania_expansion, asian_expansion, americas_expansion FROM OrderedGames
             WHERE 
                 id = ${id}
         `;
 
-        return data.rows[0]  ?? null;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to select game data');
-    }
+    return data.rows[0] ?? null;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to select game data");
+  }
 }
 
 export async function fetchScores(gameId: number) {
-    noStore();
-    try {
-        const data = await sql<PlayerScore>`
+  noStore();
+  try {
+    const data = await sql<PlayerScore>`
         SELECT
             scores.id,
             players.name as player,
@@ -132,24 +149,25 @@ export async function fetchScores(gameId: number) {
                 COALESCE(scores.eggs,0) + 
                 COALESCE(scores.food_on_cards,0) + 
                 COALESCE(scores.tucked_cards,0) + 
-                COALESCE(scores.nectar,0) AS score
+                COALESCE(scores.nectar,0) +
+                COALESCE(scores.hummingbird_track,0) AS score
         FROM scores
         JOIN players ON scores.player_id = players.id
         WHERE scores.game_id = ${gameId}
         ORDER BY score DESC
         `;
-        const scores = data.rows;
-        return scores;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to fetch scores');
-    }
+    const scores = data.rows;
+    return scores;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch scores");
+  }
 }
 
 export async function fetchRawScoresById(id: number) {
-    noStore();
-    try {
-        const data = await sql<ScoreClean>`
+  noStore();
+  try {
+    const data = await sql<ScoreClean>`
         SELECT
             players.name as player,
             scores.bird_points,
@@ -158,24 +176,25 @@ export async function fetchRawScoresById(id: number) {
             scores.eggs,
             scores.food_on_cards,
             scores.tucked_cards,
-            scores.nectar
+            scores.nectar,
+            scores.hummingbird_track
         FROM scores
         JOIN players ON scores.player_id = players.id
         WHERE scores.game_id = ${id}
         ORDER BY player ASC
         `;
-        const rawScores = data.rows;
-        return rawScores;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to fetch raw scores');
-    }
+    const rawScores = data.rows;
+    return rawScores;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch raw scores");
+  }
 }
 
 export async function fetchHighestTotal() {
-    noStore();
-    try {
-        const data = await sql<LeaderboardEntry>`
+  noStore();
+  try {
+    const data = await sql<LeaderboardEntry>`
         SELECT
             scores.game_id,
             players.name as player,
@@ -191,47 +210,49 @@ export async function fetchHighestTotal() {
         ORDER BY value DESC
         LIMIT 1
         `;
-        return data.rows[0] ?? null;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to fetch highest total');
-    }
+    return data.rows[0] ?? null;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch highest total");
+  }
 }
 
 export async function fetchHighestCategory(category: string) {
-    noStore();
+  noStore();
 
-    // Only allow specific, known-safe columns to prevent SQL injection
-    const allowedCategories = [
-        'bird_points',
-        'bonus_cards',
-        'end_of_round_goals',
-        'eggs',
-        'food_on_cards',
-        'tucked_cards',
-        'nectar'
-    ];
+  // Only allow specific, known-safe columns to prevent SQL injection
+  const allowedCategories = [
+    "bird_points",
+    "bonus_cards",
+    "end_of_round_goals",
+    "eggs",
+    "food_on_cards",
+    "tucked_cards",
+    "nectar",
+    "hummingbird_track",
+  ];
 
-    if (!allowedCategories.includes(category)) {
-        throw new Error('Invalid category');
-    }
+  if (!allowedCategories.includes(category)) {
+    throw new Error("Invalid category");
+  }
 
-    try {
-        const query = `
+  try {
+    const query = `
             SELECT
                 scores.game_id,
                 players.name as player,
                 scores.${category} as value
             FROM scores
             JOIN players ON scores.player_id = players.id
+            WHERE scores.hummingbird_track IS NOT NULL
             ORDER BY value DESC
             LIMIT 1
         `;
 
-        const data = await sql.query<LeaderboardEntry>(query);
-        return data.rows[0] ?? null;
-    } catch (err) {
-        console.error('Database Error:', err);
-        throw new Error('Failed to fetch highest category');
-    }
+    const data = await sql.query<LeaderboardEntry>(query);
+    return data.rows[0] ?? null;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch highest category");
+  }
 }
