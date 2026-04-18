@@ -60,7 +60,15 @@ function RowLabel({
   );
 }
 
-export default async function GameTable({ scores }: { scores: ScoreClean[] }) {
+export default async function GameTable({
+  scores,
+  oceaniaExpansion = false,
+  americasExpansion = false,
+}: {
+  scores: ScoreClean[];
+  oceaniaExpansion?: boolean;
+  americasExpansion?: boolean;
+}) {
   return (
     <div className="flex border border-border-table rounded-lg bg-surface-card overflow-hidden w-max">
       <TableCol>
@@ -71,8 +79,8 @@ export default async function GameTable({ scores }: { scores: ScoreClean[] }) {
         <RowLabel text="Eggs" />
         <RowLabel text="Food on Cards" />
         <RowLabel text="Tucked Cards" />
-        <RowLabel text="Nectar" />
-        <RowLabel text="Hummingbird Track" />
+        {oceaniaExpansion && <RowLabel text="Nectar" />}
+        {americasExpansion && <RowLabel text="Hummingbird Track" />}
         <RowLabel header={true} text="Total" className="border-none" />
       </TableCol>
       {scores.map((player) => (
@@ -85,10 +93,12 @@ export default async function GameTable({ scores }: { scores: ScoreClean[] }) {
             <TableCell text={player.eggs.toString()} />
             <TableCell text={player.food_on_cards.toString()} />
             <TableCell text={player.tucked_cards.toString()} />
-            <TableCell text={player.nectar.toString()} />
-            <TableCell
-              text={safeParseInt(player.hummingbird_track).toString()}
-            />
+            {oceaniaExpansion && <TableCell text={player.nectar.toString()} />}
+            {americasExpansion && (
+              <TableCell
+                text={safeParseInt(player.hummingbird_track).toString()}
+              />
+            )}
             <HeaderFooterCell
               text={sumArray(
                 Object.values(player).filter(

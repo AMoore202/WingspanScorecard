@@ -50,7 +50,11 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <div className="w-full overflow-x-scroll hide-scrollbar">
               <div className="flex items-start px-4 lg:px-6 pt-2 pb-4 lg:pb-6 w-max">
                 <Suspense fallback={<TableSkeleton />}>
-                  <GameTable scores={scores} />
+                  <GameTable
+                    scores={scores}
+                    oceaniaExpansion={gameData.oceania_expansion}
+                    americasExpansion={gameData.americas_expansion}
+                  />
                 </Suspense>
                 <div className="size-2 pr-2" aria-hidden="true" />
               </div>
