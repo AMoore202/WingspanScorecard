@@ -1,65 +1,66 @@
 export type Player = {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 };
 
 export type PlayerScore = {
-    id: number;
-    player: string;
-    score: number;
+  id: number;
+  player: string;
+  score: number;
 };
 
 export type Game = {
-    id: number;
-    date: Date;
-    time: Date;
-    game_number: number;
-    european_expansion: boolean;
-    oceania_expansion: boolean;
-    asian_expansion: boolean;
+  id: number;
+  date: Date;
+  time: Date;
+  game_number: number;
+  european_expansion: boolean;
+  oceania_expansion: boolean;
+  asian_expansion: boolean;
+  americas_expansion: boolean;
 };
 
 export type Score = {
-    id: string;
-    game_id: string;
-    player_id: string;
-    bird_points: number;
-    bonus_cards: number;
-    end_of_round_goals: number;
-    eggs: number;
-    food_on_cards: number;
-    tucked_cards: number;
-    nectar: number;
+  id: string;
+  game_id: string;
+  player_id: string;
+  bird_points: number;
+  bonus_cards: number;
+  end_of_round_goals: number;
+  eggs: number;
+  food_on_cards: number;
+  tucked_cards: number;
+  nectar: number;
 };
 
 export type ScoreClean = {
-    player: string;
-    bird_points: number;
-    bonus_cards: number;
-    end_of_round_goals: number;
-    eggs: number;
-    food_on_cards: number;
-    tucked_cards: number;
-    nectar: number;
+  player: string;
+  bird_points: number;
+  bonus_cards: number;
+  end_of_round_goals: number;
+  eggs: number;
+  food_on_cards: number;
+  tucked_cards: number;
+  nectar: number;
 };
 
 export type ScoredGame = {
-    game: Game;
-    scores: Array<PlayerScore>;
-}
+  game: Game;
+  scores: Array<PlayerScore>;
+};
 
 export type PointsCategory = {
-    [key: string]: number;
-}
+  [key: string]: number;
+};
 
 export type ScoreRowProps = {
-    category: string;
-    numPlayers: number;
-    handleNumChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  category: string;
+  numPlayers: number;
+  handleNumChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 export type LeaderboardEntry = {
-    player: string;
-    value: number;
-    game_id: number;
-}
+  player: string;
+  value: number;
+  game_id: number;
+};
