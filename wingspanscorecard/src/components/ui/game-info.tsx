@@ -8,13 +8,15 @@ export default async function GameInfo({ id }: { id: number }) {
   const expansionsContent =
     !gameData.european_expansion &&
     !gameData.oceania_expansion &&
-    !gameData.asian_expansion ? (
+    !gameData.asian_expansion &&
+    !gameData.americas_expansion ? (
       <Text text="None" />
     ) : (
       <div className="flex gap-[6px] mt-1">
         {gameData.european_expansion && <ExpansionPill expansion="europe" />}
         {gameData.oceania_expansion && <ExpansionPill expansion="oceania" />}
         {gameData.asian_expansion && <ExpansionPill expansion="asia" />}
+        {gameData.americas_expansion && <ExpansionPill expansion="americas" />}
       </div>
     );
 
@@ -40,7 +42,7 @@ export default async function GameInfo({ id }: { id: number }) {
                 hour: "numeric",
                 minute: "2-digit",
                 hour12: true,
-              }
+              },
             )}
           />
         </div>
