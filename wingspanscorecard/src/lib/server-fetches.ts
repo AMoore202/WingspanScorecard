@@ -244,7 +244,7 @@ export async function fetchHighestCategory(category: string) {
                 scores.${category} as value
             FROM scores
             JOIN players ON scores.player_id = players.id
-            WHERE scores.hummingbird_track IS NOT NULL
+            WHERE scores.${category} IS NOT NULL
             ORDER BY value DESC
             LIMIT 1
         `;
