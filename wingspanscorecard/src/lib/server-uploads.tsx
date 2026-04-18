@@ -16,22 +16,30 @@ export async function addGame(formData: FormData) {
     european_expansion: z.boolean(),
     oceania_expansion: z.boolean(),
     asian_expansion: z.boolean(),
+    americas_expansion: z.boolean(),
   });
 
   const AddGame = GameDataSchema.omit({ id: true });
 
-  const { date, time, european_expansion, oceania_expansion, asian_expansion } =
-    AddGame.parse({
-      date: formData.get("gamedate"),
-      time: formData.get("gametime"),
-      european_expansion: safeParseBool(formData.get("europeanexp")),
-      oceania_expansion: safeParseBool(formData.get("oceaniaexp")),
-      asian_expansion: safeParseBool(formData.get("asianexp")),
-    });
+  const {
+    date,
+    time,
+    european_expansion,
+    oceania_expansion,
+    asian_expansion,
+    americas_expansion,
+  } = AddGame.parse({
+    date: formData.get("gamedate"),
+    time: formData.get("gametime"),
+    european_expansion: safeParseBool(formData.get("europeanexp")),
+    oceania_expansion: safeParseBool(formData.get("oceaniaexp")),
+    asian_expansion: safeParseBool(formData.get("asianexp")),
+    americas_expansion: safeParseBool(formData.get("americasexp")),
+  });
 
   await sql`
-    INSERT INTO games (date, time, european_expansion, oceania_expansion, asian_expansion)
-    VALUES (${date}, ${time}, ${european_expansion}, ${oceania_expansion}, ${asian_expansion})
+    INSERT INTO games (date, time, european_expansion, oceania_expansion, asian_expansion, americas_expansion)
+    VALUES (${date}, ${time}, ${european_expansion}, ${oceania_expansion}, ${asian_expansion}, ${americas_expansion})
     `;
 
   const ScoreDataSchema = z.object({
@@ -43,6 +51,7 @@ export async function addGame(formData: FormData) {
     food_on_cards: z.number(),
     tucked_cards: z.number(),
     nectar: z.number(),
+    hummingbird_track: z.number().optional(),
   });
 
   for (let i = 1; i <= numPlayers; i++) {
@@ -55,6 +64,7 @@ export async function addGame(formData: FormData) {
       food_on_cards,
       tucked_cards,
       nectar,
+      hummingbird_track,
     } = ScoreDataSchema.parse({
       id: formData.get(`p${i}name`),
       bird_points: safeParseInt(formData.get(`p${i}birdpoints`)),
@@ -64,11 +74,12 @@ export async function addGame(formData: FormData) {
       food_on_cards: safeParseInt(formData.get(`p${i}foodoncard`)),
       tucked_cards: safeParseInt(formData.get(`p${i}tuckedcards`)),
       nectar: safeParseInt(formData.get(`p${i}nectar`)),
+      hummingbird_track: safeParseInt(formData.get(`p${i}hummingbirdtrack`)),
     });
 
     await sql`
-        INSERT INTO scores (game_id,player_id,bird_points,bonus_cards,end_of_round_goals,eggs,food_on_cards,tucked_cards,nectar)
-        VALUES ((SELECT MAX(id) FROM games), ${id}, ${bird_points}, ${bonus_cards}, ${end_of_round_goals}, ${eggs}, ${food_on_cards}, ${tucked_cards}, ${nectar})
+        INSERT INTO scores (game_id,player_id,bird_points,bonus_cards,end_of_round_goals,eggs,food_on_cards,tucked_cards,nectar,hummingbird_track)
+        VALUES ((SELECT MAX(id) FROM games), ${id}, ${bird_points}, ${bonus_cards}, ${end_of_round_goals}, ${eggs}, ${food_on_cards}, ${tucked_cards}, ${nectar}, ${hummingbird_track})
         `;
   }
 

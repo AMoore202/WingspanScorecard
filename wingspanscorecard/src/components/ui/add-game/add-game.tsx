@@ -41,9 +41,10 @@ export default function Form({ players }: { players: Player[] }) {
   const [scores, setScores] = useState(
     Array(8)
       .fill(null)
-      .map(() => new Array(7).fill(0))
+      .map(() => new Array(7).fill(0)),
   );
   const [oceaniaExpansion, setOceaniaExpansion] = useState(false);
+  const [americasExpansion, setAmericasExpansion] = useState(false);
   const pointsCategories: PointsCategory = {
     birdpoints: 1,
     bonuscards: 2,
@@ -52,18 +53,25 @@ export default function Form({ players }: { players: Player[] }) {
     foodoncard: 5,
     tuckedcards: 6,
     nectar: 7,
+    hummingbirdtrack: 8,
   };
 
   const handleNumPlayersChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setNumPlayers(event.target.value);
   };
 
   const handleOceaniaExpansionChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setOceaniaExpansion(event.target.checked);
+  };
+
+  const handleAmericasExpansionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setAmericasExpansion(event.target.checked);
   };
 
   const handleScoreChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +79,7 @@ export default function Form({ players }: { players: Player[] }) {
     const category = event.target.id.slice(2);
     const nextScores = scores.slice();
     nextScores[playerNumber - 1][pointsCategories[category] - 1] = safeParseInt(
-      event.target.value
+      event.target.value,
     );
     setScores(nextScores);
   };
@@ -123,6 +131,16 @@ export default function Form({ players }: { players: Player[] }) {
           />
           Asian Expansion
         </label>
+        <label className="flex items-center font-medium">
+          <input
+            type="checkbox"
+            id="americasexp"
+            name="americasexp"
+            onChange={handleAmericasExpansionChange}
+            className="mr-2"
+          />
+          Americas Expansion
+        </label>
         <div className="w-full flex gap-4 my-8">
           <div>
             <div className="h-11 w-40 items-center flex font-medium">
@@ -147,6 +165,11 @@ export default function Form({ players }: { players: Player[] }) {
             {oceaniaExpansion && (
               <div className="h-11 w-40 items-center flex font-medium">
                 Nectar
+              </div>
+            )}
+            {americasExpansion && (
+              <div className="h-11 w-40 items-center flex font-medium">
+                Hummingbird Track
               </div>
             )}
           </div>
@@ -185,6 +208,13 @@ export default function Form({ players }: { players: Player[] }) {
             {oceaniaExpansion && (
               <ScoreRow
                 category="nectar"
+                numPlayers={numPlayersInt}
+                handleNumChange={handleScoreChange}
+              />
+            )}
+            {americasExpansion && (
+              <ScoreRow
+                category="hummingbirdtrack"
                 numPlayers={numPlayersInt}
                 handleNumChange={handleScoreChange}
               />
